@@ -10,7 +10,7 @@ namespace ATMModel
                 Math.Sqrt(Math.Pow((newCoordinate.X - oldCoordinate.X), 2) +
                           Math.Pow((newCoordinate.Y - oldCoordinate.Y), 2));
             velocity = velocity/
-                       ((double.TryParse(newTimestamp.Timestamp) - double.TryParse(oldTimestamp.Timestamp))/1000);
+                       ((double.Parse(newTimestamp.Timestamp) - double.Parse(oldTimestamp.Timestamp))/1000);
             return velocity;
         }
     }
