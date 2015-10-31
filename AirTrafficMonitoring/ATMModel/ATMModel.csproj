@@ -42,10 +42,12 @@
   <ItemGroup>
     <Compile Include="ATMAngleConverter.cs" />
     <Compile Include="ATMCoordinate.cs" />
+    <Compile Include="ATMDataConverter.cs" />
     <Compile Include="ATMTransponderData.cs" />
     <Compile Include="ATMVelocityConverter.cs" />
     <Compile Include="IATMAngleConverter.cs" />
     <Compile Include="IATMCoordinate.cs" />
+    <Compile Include="IATMDataConverter.cs" />
     <Compile Include="IATMTransponderData.cs" />
     <Compile Include="IATMVelocityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
