@@ -1,6 +1,6 @@
 ﻿namespace ATMModel
 {
-    class ATMTransponderData : IATMTransponderData
+    public class ATMTransponderData : IATMTransponderData
     {
         public ATMTransponderData()
         {
