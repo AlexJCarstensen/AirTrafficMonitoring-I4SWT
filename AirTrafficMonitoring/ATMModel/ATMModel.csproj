@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATMCoordinate.cs" />
+    <Compile Include="ATMVelocityConverter.cs" />
     <Compile Include="IATMCoordinate.cs" />
+    <Compile Include="IATMVelocityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
