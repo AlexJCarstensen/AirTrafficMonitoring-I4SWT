@@ -28,12 +28,10 @@ namespace AirTrafficMonitoring.Unit.Test
             _list.Add("ABKH2;99083;324432;32423;20151012134322345");
             _atmTransponderDataList = _uut.Convert(_list);
         }
-
         [Test]
-        public void Convert_something()
+        public void Convert_Add3TransponderData_return3()
         {
             Assert.That(_atmTransponderDataList.Count, Is.EqualTo(3));
         }
-
     }
 }
