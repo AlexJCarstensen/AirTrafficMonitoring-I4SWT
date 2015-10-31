@@ -2,7 +2,7 @@
 
 namespace ATMModel
 {
-    class ATMAngleConverter : IATMAngleConverter
+    public class ATMAngleConverter : IATMAngleConverter
     {
         public double Convert(IATMCoordinate oldCoordinate, IATMCoordinate newCoordinate)
         {
@@ -11,7 +11,7 @@ namespace ATMModel
             var angle = theta*(180/Math.PI);
             if (angle < 0)
                 angle += 360;
-            return angle;
+            return Math.Round(angle, 2);
         }
     }
 }

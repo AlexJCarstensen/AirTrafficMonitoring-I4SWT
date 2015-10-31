@@ -19,7 +19,7 @@ namespace AirTrafficMonitoring.Unit.Test
         }
 
         [Test]
-        public void Convert_newCoordinates_OneSecond_Return25()
+        public void Convert_newCoordinates_OneSecond_Return246_68()
         {
             var newTestCoordinate = new ATMCoordinate(16000, 55500, 15453);
             var newTime = new ATMTransponderData { Timestamp = "20150512145713542" };
