@@ -2,7 +2,7 @@ using System.Xml;
 
 namespace ATMModel
 {
-    class ATMCoordinate : IATMCoordinate
+    public class ATMCoordinate : IATMCoordinate
     {
         public ATMCoordinate(int x, int y, int z)
         {
