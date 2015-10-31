@@ -38,16 +38,23 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TransponderReceiver">
+      <HintPath>..\TransponderReceiver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATMAngleConverter.cs" />
     <Compile Include="ATMCoordinate.cs" />
     <Compile Include="ATMDataConverter.cs" />
+    <Compile Include="ATMDataDecoder.cs" />
+    <Compile Include="ATMEventHandler.cs" />
     <Compile Include="ATMTransponderData.cs" />
     <Compile Include="ATMVelocityConverter.cs" />
     <Compile Include="IATMAngleConverter.cs" />
     <Compile Include="IATMCoordinate.cs" />
     <Compile Include="IATMDataConverter.cs" />
+    <Compile Include="IATMDataDecoder.cs" />
+    <Compile Include="IATMEventHandler.cs" />
     <Compile Include="IATMTransponderData.cs" />
     <Compile Include="IATMVelocityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
