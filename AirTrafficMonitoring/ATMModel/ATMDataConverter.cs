@@ -7,7 +7,7 @@ namespace ATMModel
     {
         private static readonly List<IATMTransponderData> LocaDataItems = new List<IATMTransponderData>();
         public ATMDataConverter(IATMTransponderData data, IATMAngleConverter angle, IATMVelocityConverter velocity)
-        {
+        { // er det nødvendigt med sidste 2 parameter ? kan den ikke få dem fra første parameter ?
         }
         public List<IATMTransponderData> Convert(List<string> list) 
         {

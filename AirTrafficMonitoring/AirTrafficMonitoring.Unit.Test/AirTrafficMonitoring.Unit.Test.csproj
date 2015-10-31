@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ATMAngleConverterUnitTest.cs" />
     <Compile Include="ATMCoordinateUnitTest.cs" />
+    <Compile Include="ATMDataConverterUnitTest.cs" />
     <Compile Include="ATMTransponderDataUnitTest.cs" />
     <Compile Include="ATMVelocityUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
