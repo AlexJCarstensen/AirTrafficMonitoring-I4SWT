@@ -4,7 +4,6 @@ namespace ATMModel
 {
     public class ATMVelocityConverter : IATMVelocityConverter
     {
-        public ATMVelocityConverter(){}
         public double Convert(IATMCoordinate oldCoordinate, IATMCoordinate newCoordinate, IATMTransponderData oldTimestamp, IATMTransponderData newTimestamp)
         {
             var velocity =

@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMAngleConverter.cs" />
     <Compile Include="ATMCoordinate.cs" />
     <Compile Include="ATMVelocityConverter.cs" />
+    <Compile Include="IATMAngleConverter.cs" />
     <Compile Include="IATMCoordinate.cs" />
     <Compile Include="IATMVelocityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

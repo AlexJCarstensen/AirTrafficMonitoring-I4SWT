@@ -1,5 +1,3 @@
-using System.Xml;
-
 namespace ATMModel
 {
     public class ATMCoordinate : IATMCoordinate
