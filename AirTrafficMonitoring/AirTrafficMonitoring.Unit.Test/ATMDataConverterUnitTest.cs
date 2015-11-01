@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ATMModel;
 using NUnit.Framework;
 
@@ -23,15 +24,24 @@ namespace AirTrafficMonitoring.Unit.Test
                 _atmVelocityConverter = new ATMVelocityConverter());
             _list = new List<string>();
             _atmTransponderDataList = new List<IATMTransponderData>();
-            _list.Add("F12;234;324;5000;20151012134322345");
-            _list.Add("AB34;758;243;4321;20151012134322345");
-            _list.Add("ABKH2;99083;324432;32423;20151012134322345");
+            _list.Add("F12;87083;23432;5000;20151012134322345");
+            _list.Add("AB34;88083;24432;4321;20151012134323345");
+            _list.Add("ABKH2;89083;25432;3423;20151012134324345");
             _atmTransponderDataList = _uut.Convert(_list);
         }
         [Test]
         public void Convert_Add3TransponderData_return3()
         {
             Assert.That(_atmTransponderDataList.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void ATMDataConverter_Convert_CheckVelocity()
+        {
+            var locList = new List<string>();
+            locList.Add("AB34;89083;25432;4321;20151012134326345");
+            _atmTransponderDataList = _uut.Convert(locList);
+            Assert.That(_atmTransponderDataList.ElementAt(0).HorizontalVelocity, Is.EqualTo(471));
         }
     }
 }
