@@ -7,20 +7,23 @@ namespace ATMModel
 {
     class ATMDataDecoder : IATMDataDecoder
     {
+        private readonly IATMDataConverter _dataConverter;
+        private readonly IATMEventHandler _eventHandler;
         public event EventHandler<IEnumerable<IATMTransponderData>> _event;
         
 
         public ATMDataDecoder(ITransponderReceiver transponderReceiver, IATMDataConverter dataConverter,
             IATMEventHandler eventHandler)
         {
-             
+            _dataConverter = dataConverter;
+            _eventHandler = eventHandler;
+
+            transponderReceiver.TransponderDataReady += OnTransponderDataReady;
         }
+
         public void OnTransponderDataReady(List<string> list)
         {
-            
-            var transponderDataItem = new List<IATMTransponderData>();
-            transponderDataItem = ((IATMDataConverter) transponderDataItem).Convert(list).FindAll(t => t.Coordinate.Validate);
-            //??
+            _dataConverter.Convert(list);
 
         }
     }

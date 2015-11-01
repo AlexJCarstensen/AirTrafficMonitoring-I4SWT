@@ -7,26 +7,39 @@ namespace AirTrafficMonitoring.Unit.Test
     public class ATMVelocityUnitTest
     {
         private IATMVelocityConverter _uut;
-        private IATMCoordinate _atmCoordinate;
-        private IATMTransponderData _atmTransponderData;
 
         [SetUp]
         public void Setup()
         {
             _uut = new ATMVelocityConverter();
-            _atmCoordinate = new ATMCoordinate(15765, 55425, 15453);
-            _atmTransponderData = new ATMTransponderData { Timestamp = "20150512145712542" };
         }
 
         [Test]
-        public void Convert_newCoordinates_OneSecond_Return246_68()
+        public void ATMVelocityConverter_Convert_NorthWestToSouthEast()
         {
-            var newTestCoordinate = new ATMCoordinate(16000, 55500, 15453);
-            var newTime = new ATMTransponderData { Timestamp = "20150512145713542" };
-            var velocity = _uut.Convert(_atmCoordinate, newTestCoordinate, _atmTransponderData, newTime);
-            Assert.That(velocity, Is.EqualTo(246.68));
+            var velocity = _uut.Convert(new ATMCoordinate(6078, 4564, 0), new ATMCoordinate(6968, 3600, 0), "211287021526419", "211287021531623");
+            Assert.That(velocity, Is.EqualTo(252.12));
         }
 
-        
+        [Test]
+        public void ATMVelocityConverter_Convert_SouthWestToNorthEast()
+        {
+            var velocity = _uut.Convert(new ATMCoordinate(1582, 1744, 0), new ATMCoordinate(12503, 4999, 0), "12876", "45332");
+            Assert.That(velocity, Is.EqualTo(351.11));
+        }
+
+        [Test]
+        public void ATMVelocityConverter_Convert_EastToWest()
+        {
+            var velocity = _uut.Convert(new ATMCoordinate(8000, 6000, 0), new ATMCoordinate(4657, 6000, 0), "36923", "57490");
+            Assert.That(velocity, Is.EqualTo(162.54));
+        }
+
+        [Test]
+        public void ATMVelocityConverter_Convert_SouthToNorth()
+        {
+            var velocity = _uut.Convert(new ATMCoordinate(6724, 3971, 0), new ATMCoordinate(6724, 8530, 0), "06923", "29923");
+            Assert.That(velocity, Is.EqualTo(198.22));
+        }
     }
 }
