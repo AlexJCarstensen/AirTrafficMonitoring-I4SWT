@@ -24,7 +24,7 @@ namespace ATMModel
 
                 var newItem =new ATMTransponderData(
                     data[0],
-                    coordinate,
+                    int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]),
                     data[4]
                     );
 
