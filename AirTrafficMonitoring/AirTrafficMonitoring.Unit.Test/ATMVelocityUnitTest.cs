@@ -26,5 +26,7 @@ namespace AirTrafficMonitoring.Unit.Test
             var velocity = _uut.Convert(_atmCoordinate, newTestCoordinate, _atmTransponderData, newTime);
             Assert.That(velocity, Is.EqualTo(246.68));
         }
+
+        
     }
 }
