@@ -9,7 +9,6 @@ namespace AirTrafficMonitoring.Unit.Test
     public class ATMDataConverterUnitTest
     {
         private IATMDataConverter _uut;
-        private IATMTransponderData _atmTransponderData;
         private IATMAngleConverter _atmAngleConverter;
         private IATMVelocityConverter _atmVelocityConverter;
         private List<string> _list;
@@ -19,9 +18,7 @@ namespace AirTrafficMonitoring.Unit.Test
         public void Setup()
         {
 
-            _uut = new ATMDataConverter(_atmTransponderData = new ATMTransponderData("F22", 2, 3, 4, "20150512145712542", 25, 54),
-                _atmAngleConverter = new ATMAngleConverter(),
-                _atmVelocityConverter = new ATMVelocityConverter());
+            _uut = new ATMDataConverter(_atmAngleConverter = new ATMAngleConverter(), _atmVelocityConverter = new ATMVelocityConverter());
             _list = new List<string>();
             _atmTransponderDataList = new List<IATMTransponderData>();
             _list.Add("F12;87083;23432;5000;20151012134322345");
@@ -38,10 +35,17 @@ namespace AirTrafficMonitoring.Unit.Test
         [Test]
         public void ATMDataConverter_Convert_CheckVelocity()
         {
-            var locList = new List<string>();
-            locList.Add("AB34;89083;25432;4321;20151012134326345");
+            var locList = new List<string> {"AB34;89083;25432;4321;20151012134326345"};
             _atmTransponderDataList = _uut.Convert(locList);
             Assert.That(_atmTransponderDataList.ElementAt(0).HorizontalVelocity, Is.EqualTo(471));
+        }
+
+        [Test]
+        public void ATMDataConverter_Convert_CheckAngle()
+        {
+            var locList = new List<string> {"AB34;89083;25432;4321;20151012134326345"};
+            _atmTransponderDataList = _uut.Convert(locList);
+            Assert.That(_atmTransponderDataList.ElementAt(0).CompassCourse, Is.EqualTo(315));
         }
     }
 }

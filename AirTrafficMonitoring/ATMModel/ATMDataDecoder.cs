@@ -5,7 +5,7 @@ using TransponderReceiver;
 
 namespace ATMModel
 {
-    class ATMDataDecoder : IATMDataDecoder
+    public class ATMDataDecoder : IATMDataDecoder
     {
         private readonly IATMDataConverter _dataConverter;
         private readonly IATMEventHandler _eventHandler;
@@ -23,8 +23,7 @@ namespace ATMModel
 
         public void OnTransponderDataReady(List<string> list)
         {
-            _dataConverter.Convert(list);
-
+            _event?.Invoke(this, _dataConverter.Convert(list));
         }
     }
 }
