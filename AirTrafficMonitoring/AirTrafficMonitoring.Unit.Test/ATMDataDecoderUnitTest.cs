@@ -72,11 +72,26 @@ namespace AirTrafficMonitoring.Unit.Test
 
             _fakeTransponderDataSource.TransponderDataReady += Raise.Event<TransponderDataReadyHandler>(new List<string>
             {
+                "F15;87083;23432;499;20151012134322345",
+                "F16;83;23432;5000;20151012134322345"
+            });
+
+            Assert.That(e, Is.Null);
+        }
+
+        [Test]
+        public void TransponderDataReady_OneTrackEntered_OneTrackEnteredEvent()
+        {
+            NotificationEventArgs e = null;
+            ATMNotification.NotificationEvent += (sender, args) => { e = args; };
+
+            _fakeTransponderDataSource.TransponderDataReady += Raise.Event<TransponderDataReadyHandler>(new List<string>
+            {
                 "F15;87083;23432;4999;20151012134322345",
                 "F16;83;23432;5000;20151012134322345"
             });
 
-            Assert.That(e.Tag, Is.EqualTo("F15"));
+            Assert.That(e?.Tag, Is.EqualTo("F15"));
         }
     }
 }

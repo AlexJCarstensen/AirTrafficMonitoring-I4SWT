@@ -12,12 +12,6 @@ namespace ATMModel.Events
         private List<IATMTransponderData> _atmTransponderDatas = new List<IATMTransponderData>();
         public void Handle(List<IATMTransponderData> newAtmTransponderDatas)
         {
-            if (_atmTransponderDatas.Any())
-            {
-                _atmTransponderDatas = newAtmTransponderDatas;
-                return;
-            }
-
             foreach (var warning in _atmWarnings)
             {
                 warning.DetectWarning(newAtmTransponderDatas);
@@ -27,6 +21,8 @@ namespace ATMModel.Events
             {
                 notification.DetectNotification(_atmTransponderDatas, newAtmTransponderDatas);
             }
+
+            _atmTransponderDatas = newAtmTransponderDatas;
         }
     }
 }
