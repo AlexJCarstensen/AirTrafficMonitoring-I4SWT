@@ -57,7 +57,7 @@
     <Compile Include="ATMDataConverterUnitTest.cs" />
     <Compile Include="ATMDataDecoderUnitTest.cs" />
     <Compile Include="ATMTransponderDataUnitTest.cs" />
-    <Compile Include="ATMVelocityUnitTest.cs" />
+    <Compile Include="ATMVelocityConverterUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

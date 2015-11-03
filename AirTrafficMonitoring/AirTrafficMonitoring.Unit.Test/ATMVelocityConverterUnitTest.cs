@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace AirTrafficMonitoring.Unit.Test
 {
     [TestFixture]
-    public class ATMVelocityUnitTest
+    public class ATMVelocityConverterUnitTest
     {
         private IATMVelocityConverter _uut;
 
