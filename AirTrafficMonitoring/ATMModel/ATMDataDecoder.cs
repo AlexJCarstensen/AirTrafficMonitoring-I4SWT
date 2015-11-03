@@ -26,6 +26,8 @@ namespace ATMModel
 
         public void OnTransponderDataReady(List<string> list)
         {
+            if(list.Count <= 0) return;
+
             var convertedData = _dataConverter.Convert(list);
             _event?.Invoke(this, convertedData);
             _eventHandler.Handle(convertedData);
