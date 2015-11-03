@@ -17,6 +17,6 @@ namespace ATMModel.Events
         public string Tag2 { get; }
         public string EventName { get; }
         private bool _active;
-        public bool Active { get { return _active; } set { _active = value; if(value) StopMeEvent?.Invoke(this, Empty);} }
+        public bool Active { get { return _active; } set { _active = value; if(!value) StopMeEvent?.Invoke(this, Empty);} }
     }
 }

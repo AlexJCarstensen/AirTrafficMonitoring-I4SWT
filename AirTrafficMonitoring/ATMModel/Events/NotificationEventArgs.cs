@@ -6,12 +6,14 @@ namespace ATMModel.Events
     public class NotificationEventArgs : EventArgs
     {
         public event EventHandler StopMeEvent;
-        public NotificationEventArgs(string tag, string eventName)
+        private int _delayTime;
+        public NotificationEventArgs(string tag, string eventName, int delayTime = 10000)
         {
             Tag = tag;
             EventName = eventName;
+            _delayTime = delayTime;
 
-            var timer = new Timer {Interval = 10000};
+            var timer = new Timer {Interval = delayTime};
             timer.Elapsed += (sender, args) =>
             {
                 StopMeEvent?.Invoke(this, Empty);
