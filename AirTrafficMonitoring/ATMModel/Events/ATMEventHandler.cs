@@ -19,7 +19,7 @@ namespace ATMModel.Events
 
             foreach (var warning in _atmWarnings)
             {
-                warning.DetectWarning(_atmTransponderDatas, newAtmTransponderDatas);
+                warning.DetectWarning(newAtmTransponderDatas);
             }
 
             foreach (var notification in _atmNotifications)
