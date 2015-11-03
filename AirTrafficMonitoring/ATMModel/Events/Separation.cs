@@ -31,16 +31,19 @@ namespace ATMModel.Events
 
                         if (!vertical || !horizontal || item.Tag == e.Current.Tag) continue;
 
+                        var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation");
+                        if(_notifiedEvents.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
+
                         if (
-                            _notifiedEvents.Any(
+                            localNotifiedEvents.Any(
                                 t =>
                                     t.Tag1 == item.Tag 
                                     || t.Tag1 == e.Current.Tag 
                                     && t.Tag2 == item.Tag 
                                     || t.Tag2 == e.Current.Tag))
                         {
-                            _notifiedEvents.Add(new WarningEventArgs(item.Tag, e.Current.Tag, "Separation"));
-                            _notifiedEvents.Remove(_notifiedEvents.First(
+                            _notifiedEvents.Add(currentNotification);
+                            localNotifiedEvents.Remove(localNotifiedEvents.First(
                                 t =>
                                     t.Tag1 == item.Tag 
                                     || t.Tag1 == e.Current.Tag 
@@ -48,7 +51,8 @@ namespace ATMModel.Events
                                     || t.Tag2 == e.Current.Tag));
                             continue;
                         }
-                        Notify(new WarningEventArgs(item.Tag, e.Current.Tag, "Separation"));
+                        Notify(currentNotification);
+                        _notifiedEvents.Add(currentNotification);
                         _atmLog.Log(item.Timestamp + " Separation Warning " + item.Tag + " " + e.Current.Tag + " Activated");
                     }
                 }

@@ -15,21 +15,21 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         [SetUp]
         public void Setup()
         {
-            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent");
+            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent", 100);
             EventRaised = new AutoResetEvent(false);
             _notificationEventArgs.StopMeEvent += (sender, eventArgs) => { EventRaised.Set(); };
         }
 
         [Test]
-        public void StopMeEvent_NotCalled_Before10Second()
+        public void StopMeEvent_NotCalled_Before100milliSecond()
         {
-            Assert.IsFalse(EventRaised.WaitOne(TimeSpan.FromSeconds(1)));
+            Assert.IsFalse(EventRaised.WaitOne(99));
         }
 
         [Test]
-        public void StopMeEvent_IsCalled_After10Second()
+        public void StopMeEvent_IsCalled_After100milliSecond()
         {
-            Assert.IsTrue(EventRaised.WaitOne(TimeSpan.FromSeconds(11)));
+            Assert.IsTrue(EventRaised.WaitOne(150));
         }
     }
 }
