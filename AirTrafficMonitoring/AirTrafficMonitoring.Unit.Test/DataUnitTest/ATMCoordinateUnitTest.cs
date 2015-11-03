@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
-using ATMModel;
-using ATMModel.Data;
+﻿using ATMModel.Data;
+using NUnit.Framework;
 
-namespace AirTrafficMonitoring.Unit.Test
+namespace AirTrafficMonitoring.Unit.Test.DataUnitTest
 {
     [TestFixture]
     public class ATMCoordinateUnitTest

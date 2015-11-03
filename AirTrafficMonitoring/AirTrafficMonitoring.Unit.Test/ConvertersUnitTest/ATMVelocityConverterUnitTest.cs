@@ -1,9 +1,8 @@
-﻿using ATMModel;
-using ATMModel.Converters;
+﻿using ATMModel.Converters;
 using ATMModel.Data;
 using NUnit.Framework;
 
-namespace AirTrafficMonitoring.Unit.Test
+namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
 {
     [TestFixture]
     public class ATMVelocityConverterUnitTest

@@ -52,12 +52,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATMAngleConverterUnitTest.cs" />
-    <Compile Include="ATMCoordinateUnitTest.cs" />
-    <Compile Include="ATMDataConverterUnitTest.cs" />
+    <Compile Include="ConvertersUnitTest\ATMAngleConverterUnitTest.cs" />
+    <Compile Include="DataUnitTest\ATMCoordinateUnitTest.cs" />
+    <Compile Include="ConvertersUnitTest\ATMDataConverterUnitTest.cs" />
     <Compile Include="ATMDataDecoderUnitTest.cs" />
-    <Compile Include="ATMTransponderDataUnitTest.cs" />
-    <Compile Include="ATMVelocityConverterUnitTest.cs" />
+    <Compile Include="DataUnitTest\ATMTransponderDataUnitTest.cs" />
+    <Compile Include="ConvertersUnitTest\ATMVelocityConverterUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventsUnitTest\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
