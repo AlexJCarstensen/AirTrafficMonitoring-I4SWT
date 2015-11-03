@@ -52,6 +52,7 @@
     <Compile Include="ATMVelocityConverter.cs" />
     <Compile Include="Events\ATMNotification.cs" />
     <Compile Include="Events\ATMWarning.cs" />
+    <Compile Include="Events\NotificationEventArgs.cs" />
     <Compile Include="Events\Separation.cs" />
     <Compile Include="Events\TrackEnteredAirspace.cs" />
     <Compile Include="Events\TrackLeftAirspace.cs" />

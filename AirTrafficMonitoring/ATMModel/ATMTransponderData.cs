@@ -14,6 +14,15 @@
             CompassCourse = cc;
         }
 
+        public ATMTransponderData(string tag, IATMCoordinate coordinate, string timestamp, int hv = 0, int cc = 0)
+        {
+            Tag = tag;
+            Coordinate = coordinate;
+            Timestamp = timestamp;
+            HorizontalVelocity = hv;
+            CompassCourse = cc;
+        }
+
         public int CompassCourse { get; set; }
         public IATMCoordinate Coordinate { get; set; }
         public int HorizontalVelocity { get; set; }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ATMModel;
+using ATMModel.Events;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using TransponderReceiver;
 
@@ -17,7 +19,7 @@ namespace AirTrafficMonitoring.Unit.Test
         public void Setup()
         {
             _fakeTransponderDataSource = Substitute.For<ITransponderReceiver>();
-            _uut = new ATMDataDecoder(_fakeTransponderDataSource, new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()), null);
+            _uut = new ATMDataDecoder(_fakeTransponderDataSource, new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()), new ATMEventHandler());
         }
 
         [Test]
@@ -58,6 +60,21 @@ namespace AirTrafficMonitoring.Unit.Test
             });
 
             Assert.That(list?.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void TransponderDataReady_NoTrackEntered_NoTrackEnteredEvent()
+        {
+            NotificationEventArgs e = null;
+            ATMNotification.NotificationEvent += (sender, args) => { e = args; };
+
+            _fakeTransponderDataSource.TransponderDataReady += Raise.Event<TransponderDataReadyHandler>(new List<string>
+            {
+                "F15;87083;23432;4999;20151012134322345",
+                "F16;83;23432;5000;20151012134322345"
+            });
+
+            Assert.That(e.Tag, Is.EqualTo("F15"));
         }
     }
 }

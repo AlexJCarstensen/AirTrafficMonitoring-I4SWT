@@ -1,13 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace ATMModel
+namespace ATMModel.Events
 {
-    class ATMEventHandler : IATMEventHandler
+    public class ATMEventHandler : IATMEventHandler
     {
-        void IATMEventHandler.Handle(IEnumerable<IATMTransponderData> data)
+        private readonly List<ATMWarning> _atmWarnings = new List<ATMWarning> {new Separation()};
+        private readonly List<ATMNotification> _atmNotifications = new List<ATMNotification> {new TrackEnteredAirspace(), new TrackLeftAirspace()};
+        private List<IATMTransponderData> _atmTransponderDatas = new List<IATMTransponderData>();
+        public void Handle(List<IATMTransponderData> newAtmTransponderDatas)
         {
-            throw new NotImplementedException();
+            if (_atmTransponderDatas.Any())
+            {
+                _atmTransponderDatas = newAtmTransponderDatas;
+                return;
+            }
+
+            foreach (var warning in _atmWarnings)
+            {
+                warning.DetectWarning(_atmTransponderDatas, newAtmTransponderDatas);
+            }
+
+            foreach (var notification in _atmNotifications)
+            {
+                notification.DetectNotification(_atmTransponderDatas, newAtmTransponderDatas);
+            }
         }
     }
 }

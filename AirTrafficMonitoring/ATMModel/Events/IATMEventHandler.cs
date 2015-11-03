@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ATMModel
+namespace ATMModel.Events
 {
     public interface IATMEventHandler
     {
-        void Handle(IEnumerable<IATMTransponderData> data);
+        void Handle(List<IATMTransponderData> atmTransponderDatas);
     }
 }
