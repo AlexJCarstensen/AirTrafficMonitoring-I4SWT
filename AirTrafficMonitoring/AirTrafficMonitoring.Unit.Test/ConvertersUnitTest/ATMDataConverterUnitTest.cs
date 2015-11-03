@@ -91,19 +91,3 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
         }
     }
 }
-//INTEGRATIONSTEST
-       /* [Test]
-        public void ATMDataConverter_Convert_CheckVelocity()
-        {
-            var locList = new List<string> {"AB34;89083;25432;4321;20151012134326345"};
-            _atmTransponderDataList = _uut.Convert(locList);
-            Assert.That(_atmTransponderDataList.ElementAt(0).HorizontalVelocity, Is.EqualTo(471));
-        }
-
-        [Test]
-        public void ATMDataConverter_Convert_CheckAngle()
-        {
-            var locList = new List<string> {"AB34;89083;25432;4321;20151012134326345"};
-            _atmTransponderDataList = _uut.Convert(locList);
-            Assert.That(_atmTransponderDataList.ElementAt(0).CompassCourse, Is.EqualTo(315));
-        }*/
