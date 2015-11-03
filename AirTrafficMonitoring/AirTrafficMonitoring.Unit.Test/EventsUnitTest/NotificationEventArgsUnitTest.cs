@@ -23,7 +23,7 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
             _notificationEventArgs.StopMeEvent += (sender, eventArgs) => { eventRaised.Set(); };
-            Assert.IsFalse(eventRaised.WaitOne(TimeSpan.FromMilliseconds(99)));
+            Assert.IsFalse(eventRaised.WaitOne(TimeSpan.FromMilliseconds(1)));
         }
 
         [Test]
