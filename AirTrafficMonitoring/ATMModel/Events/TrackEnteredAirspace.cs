@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ATMModel.Events
 {
     public class TrackEnteredAirspace : ATMNotification
     {
-        private static event EventHandler<string> TrackEnterEvent;
-
-      
+        public override void DetectNotification(List<IATMTransponderData> oldTransponderDatas, List<IATMTransponderData> newTransponderDatas)
+        {
+            foreach (var item in newTransponderDatas.Where(item => !oldTransponderDatas.Exists(t => t.Tag == item.Tag)))
+            {
+                Notify(new NotificationEventArgs(item.Tag, "TrackEnteredAirspace"));
+            }
+        }
     }
 }

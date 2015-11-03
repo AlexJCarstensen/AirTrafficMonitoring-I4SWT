@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using ATMModel.Events;
 using TransponderReceiver;
 
 namespace ATMModel
@@ -23,7 +24,9 @@ namespace ATMModel
 
         public void OnTransponderDataReady(List<string> list)
         {
-            _event?.Invoke(this, _dataConverter.Convert(list));
+            var convertedData = _dataConverter.Convert(list);
+            _event?.Invoke(this, convertedData);
+            _eventHandler.Handle(convertedData);
         }
     }
 }
