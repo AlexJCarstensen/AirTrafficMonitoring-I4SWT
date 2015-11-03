@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ATMModel.Data;
 
-namespace ATMModel
+namespace ATMModel.Converters
 {
     public class ATMDataConverter : IATMDataConverter
     {

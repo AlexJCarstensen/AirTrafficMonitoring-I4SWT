@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ATMModel;
+using ATMModel.Converters;
+using ATMModel.Data;
 using ATMModel.Events;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;

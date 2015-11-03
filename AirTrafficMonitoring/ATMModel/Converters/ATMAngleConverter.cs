@@ -1,6 +1,7 @@
 ﻿using System;
+using ATMModel.Data;
 
-namespace ATMModel
+namespace ATMModel.Converters
 {
     public class ATMAngleConverter : IATMAngleConverter
     {

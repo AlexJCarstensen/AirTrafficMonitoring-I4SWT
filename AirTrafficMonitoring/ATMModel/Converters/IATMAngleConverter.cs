@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using ATMModel.Data;
 
-namespace ATMModel
+namespace ATMModel.Converters
 {
     public interface IATMAngleConverter
     {

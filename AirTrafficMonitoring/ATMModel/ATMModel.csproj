@@ -43,13 +43,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATMAngleConverter.cs" />
-    <Compile Include="ATMCoordinate.cs" />
-    <Compile Include="ATMDataConverter.cs" />
+    <Compile Include="Converters\ATMAngleConverter.cs" />
+    <Compile Include="Data\ATMCoordinate.cs" />
+    <Compile Include="Converters\ATMDataConverter.cs" />
     <Compile Include="ATMDataDecoder.cs" />
     <Compile Include="Events\ATMEventHandler.cs" />
-    <Compile Include="ATMTransponderData.cs" />
-    <Compile Include="ATMVelocityConverter.cs" />
+    <Compile Include="Data\ATMTransponderData.cs" />
+    <Compile Include="Converters\ATMVelocityConverter.cs" />
     <Compile Include="Events\ATMNotification.cs" />
     <Compile Include="Events\ATMWarning.cs" />
     <Compile Include="Events\NotificationEventArgs.cs" />
@@ -57,15 +57,16 @@
     <Compile Include="Events\TrackEnteredAirspace.cs" />
     <Compile Include="Events\TrackLeftAirspace.cs" />
     <Compile Include="Events\WarningEventArgs.cs" />
-    <Compile Include="IATMAngleConverter.cs" />
-    <Compile Include="IATMCoordinate.cs" />
-    <Compile Include="IATMDataConverter.cs" />
+    <Compile Include="Converters\IATMAngleConverter.cs" />
+    <Compile Include="Data\IATMCoordinate.cs" />
+    <Compile Include="Converters\IATMDataConverter.cs" />
     <Compile Include="IATMDataDecoder.cs" />
     <Compile Include="Events\IATMEventHandler.cs" />
-    <Compile Include="IATMTransponderData.cs" />
-    <Compile Include="IATMVelocityConverter.cs" />
+    <Compile Include="Data\IATMTransponderData.cs" />
+    <Compile Include="Converters\IATMVelocityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

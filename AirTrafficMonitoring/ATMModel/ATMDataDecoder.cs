@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using ATMModel.Converters;
+using ATMModel.Data;
 using ATMModel.Events;
 using TransponderReceiver;
 

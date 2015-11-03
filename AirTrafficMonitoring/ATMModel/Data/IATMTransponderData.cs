@@ -1,4 +1,4 @@
-﻿namespace ATMModel
+﻿namespace ATMModel.Data
 {
     public interface IATMTransponderData
     {

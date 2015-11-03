@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using ATMModel;
+using ATMModel.Data;
 
 namespace AirTrafficMonitoring.Unit.Test
 {

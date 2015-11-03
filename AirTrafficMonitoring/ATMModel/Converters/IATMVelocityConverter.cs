@@ -1,4 +1,6 @@
-﻿namespace ATMModel
+﻿using ATMModel.Data;
+
+namespace ATMModel.Converters
 {
     public interface IATMVelocityConverter
     {
