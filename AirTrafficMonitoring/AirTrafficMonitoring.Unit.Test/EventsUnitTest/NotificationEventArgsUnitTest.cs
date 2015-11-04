@@ -18,7 +18,7 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
             
         }
 
-        [Test]
+        [Test][Category("Slow Tests")]
         public void StopMeEvent_NotCalled_Before100milliSecond()
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
@@ -26,7 +26,7 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
             Assert.IsFalse(eventRaised.WaitOne(TimeSpan.FromMilliseconds(1)));
         }
 
-        [Test]
+        [Test][Category("Slow Tests")]
         public void StopMeEvent_IsCalled_After100milliSecond()
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
