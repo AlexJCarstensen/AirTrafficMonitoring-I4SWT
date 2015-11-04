@@ -49,11 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertersIntegrationTest\ATMDataConverterIntegrationTest.cs" />
+    <Compile Include="EventsIntegrationTest\ATMEventHandlerIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataIntegrationTest\" />
-    <Folder Include="EventsIntegrationTest\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
