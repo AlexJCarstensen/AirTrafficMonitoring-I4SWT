@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMEventInfo.cs" />
     <Compile Include="FakeTransponderSource.cs" />
     <Compile Include="LocationMultiValueConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />

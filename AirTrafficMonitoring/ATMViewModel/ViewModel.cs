@@ -19,15 +19,17 @@ namespace ATMViewModel
     {
         public ObservableCollection<IATMTransponderData> TransponderDataItem { get; }
 
-        public ObservableCollection<NotificationEventArgs> NotificationCollection { get; } 
+        public ObservableCollection<ATMEventInfo> NotificationCollection { get; } 
+        public ObservableCollection<WarningEventArgs> WarningCollection { get; } 
         
 
         public ViewModel()
         {
-            var atmModelObj = new ATMDataDecoder(TransponderReceiverFactory.CreateTransponderDataReceiver());
-            //var atmModelObj = new ATMDataDecoder(new FakeTransponderSource());
+            //var atmModelObj = new ATMDataDecoder(TransponderReceiverFactory.CreateTransponderDataReceiver());
+            var atmModelObj = new ATMDataDecoder(new FakeTransponderSource());
             this.TransponderDataItem = new ObservableCollection<IATMTransponderData>();
-            NotificationCollection = new ObservableCollection<NotificationEventArgs>();
+            NotificationCollection = new ObservableCollection<ATMEventInfo>();
+            WarningCollection = new ObservableCollection<WarningEventArgs>();
 
             atmModelObj._event += (sender, items) =>
             {
@@ -53,33 +55,20 @@ namespace ATMViewModel
                 };
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    NotificationCollection.Add(args);
+                    NotificationCollection.Add(new ATMEventInfo(args.Tag, args.EventName, args.Timestamp, "Notification"));
                 });
             };
 
-            //ATMEventHandler.Notification += (sender, args) =>
-            //{
-            //    if (args.EventType != EventTypes.Separation)
-            //    {
-            //        args.StopMe += (o, s) =>
-            //        {
-            //            Application.Current.Dispatcher.Invoke(() =>
-            //            {
-            //                NotificationCollection.Remove(NotificationCollection.First(t => t.Tag == s));
-            //            });
-            //        };
-            //    }
-            //    else
-            //    {
-            //        if (NotificationCollection.Any(t => t.Tag == args.Tag))
-            //            NotificationCollection.Remove(NotificationCollection.First(t => t.Tag == args.Tag));
-            //    }
-
-            //    Application.Current.Dispatcher.Invoke(() =>
-            //    {
-            //        NotificationCollection.Add(args);
-            //    });
-            //};
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (args.Active)
+                        NotificationCollection.Add(new ATMEventInfo(args.Tag1 + " " + args.Tag2, args.EventName, args.Timestamp, "Warning"));
+                    else
+                        NotificationCollection.Remove(NotificationCollection.First(t => t.Tag.Contains(args.Tag1)));
+                });
+            };
         }
         
 

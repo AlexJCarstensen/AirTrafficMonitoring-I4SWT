@@ -9,7 +9,7 @@
         WindowState="Maximized"
         WindowStyle="None">
     <Window.Resources>
-        <local:FlightsUserControl x:Key="FlightsUserControl" />
+        <local:FlightsUserControl x:Key="FlightsUserControl"></local:FlightsUserControl>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -69,6 +69,17 @@
                                                      Opacity="0.3" />
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EventCategory}"
+                                             Value="Warning">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="#FF0000"
+                                                             Opacity="0.3" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
 
                         </Style>
                     </ListView.ItemContainerStyle>
@@ -92,7 +103,20 @@
                                     <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Margin="0 0 0 2"
-                                               FontWeight="Bold">!</TextBlock>
+                                               FontWeight="Bold"
+                                               Name="NTextBlock">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Text" Value="!"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding EventCategory}"
+                                                                 Value="Warning">
+                                                        <Setter Property="Text" Value="X"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </Border>
                                 <!--<Image Source="Images/flight.png" 
                                        Grid.Column="0"
