@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\OneDrive\4 Semester\SWT\repo08\AirTrafficMonitoring\AirTrafficMonitoring.Integration.Test\bin\Debug\AirTrafficMonitoring.Integration.Test.nunit" total="11" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-11-04" time="09:34:23">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.8669" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="D:\OneDrive\4 Semester\SWT\repo08\AirTrafficMonitoring\AirTrafficMonitoring.Integration.Test\bin\Debug" machine-name="DESKTOP-2T5H4A2" user="matth" user-domain="DESKTOP-2T5H4A2" />
+  <culture-info current-culture="da-DK" current-uiculture="en-US" />
+  <test-suite type="Project" name="D:\OneDrive\4 Semester\SWT\repo08\AirTrafficMonitoring\AirTrafficMonitoring.Integration.Test\bin\Debug\AirTrafficMonitoring.Integration.Test.nunit" executed="True" result="Success" success="True" time="0.188" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="D:\OneDrive\4 Semester\SWT\repo08\AirTrafficMonitoring\AirTrafficMonitoring.Integration.Test\bin\Debug\AirTrafficMonitoring.Integration.Test.dll" executed="True" result="Success" success="True" time="0.174" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="AirTrafficMonitoring" executed="True" result="Success" success="True" time="0.174" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Integration" executed="True" result="Success" success="True" time="0.173" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="0.173" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ATMDataDecoderIntegrationTest" executed="True" result="Inconclusive" success="False" time="0.010" asserts="0" />
+                      <test-suite type="Namespace" name="ConvertersIntegrationTest" executed="True" result="Success" success="True" time="0.150" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ATMDataConverterIntegrationTest" executed="True" result="Success" success="True" time="0.149" asserts="0">
+                            <results>
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckAngle" executed="True" result="Success" success="True" time="0.085" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckCoordinateX" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckCoordinateY" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckCoordinateZ" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckTag" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckTimeStamp" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_CheckVelocity" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_ExcludeInvalidX" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_ExcludeInvalidY" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_ExcludeInvalidZ" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest.ATMDataConverterIntegrationTest.ATMDataConverter_Convert_ValidateXYZ" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
