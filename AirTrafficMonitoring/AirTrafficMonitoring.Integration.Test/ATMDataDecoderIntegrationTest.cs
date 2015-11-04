@@ -119,5 +119,85 @@ namespace AirTrafficMonitoring.Integration.Test
             Assert.IsFalse(recievedItemIsValid);
         }
 
+        [Test]
+        public void EventHandler_OneTrackEntered_TrackEnteredEventRaised()
+        {
+            var recievedItemIsValid = false;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if (args.EventName == "TrackEnteredAirspace" && args.Tag == "FHT3V")
+                    recievedItemIsValid = true;
+            };
+
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string> { "FHT3V;14642;13606;4999;20151012134322345" });
+
+            Assert.IsTrue(recievedItemIsValid);
+        }
+
+        [Test]
+        public void EventHandler_OneTrackLeft_TrackLeftEventRaised()
+        {
+            var recievedItemIsValid = false;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if (args.EventName == "TrackLeftAirspace" && args.Tag == "FHT4V")
+                    recievedItemIsValid = true;
+            };
+
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string> { "FHT4V;14642;13606;4999;20151012134322345" });
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string> { "FHT4V;14642;13606;499;20151012134322345" });
+
+            Assert.IsTrue(recievedItemIsValid);
+        }
+
+        [Test]
+        public void EventHandler_OneSeparation_SeparationEventRaised()
+        {
+            var recievedItemIsValid = false;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if (args.EventName == "Separation" && args.Tag1 == "FHT5S" && args.Tag2 == "FHT4V" && args.Active)
+                    recievedItemIsValid = true;
+            };
+
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string>
+                {
+                    "FHT4V;14642;13606;4999;20151012134322345",
+                    "FHT5S;14642;13606;4799;20151012134322345"
+                });
+
+            Assert.IsTrue(recievedItemIsValid);
+        }
+
+        [Test]
+        public void EventHandler_OneSeparationfromActivToNotActive_SeparationEventRaised()
+        {
+            var recievedItemIsValid = false;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if (args.EventName == "Separation" && args.Tag1 == "FHT5S" && args.Tag2 == "FHT4V" && !args.Active)
+                    recievedItemIsValid = true;
+            };
+
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string>
+                {
+                    "FHT4V;14642;13606;4999;20151012134322345",
+                    "FHT5S;14642;13606;4799;20151012134322345"
+                });
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string>
+                {
+                    "FHT4V;14642;13606;4999;20151012134322345",
+                    "FHT5S;14642;13606;4599;20151012134322345"
+                });
+
+            Assert.IsTrue(recievedItemIsValid);
+        }
+
     }
 }
