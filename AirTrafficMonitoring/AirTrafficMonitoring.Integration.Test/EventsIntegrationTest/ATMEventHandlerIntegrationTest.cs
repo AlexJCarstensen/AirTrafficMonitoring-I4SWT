@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using ATMModel.Data;
 using ATMModel.Events;
 using NSubstitute;
@@ -137,6 +139,40 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             _atmEventHandler.Handle(new List<IATMTransponderData>());
 
             Assert.That(eventCounter, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void EventHandler_NotificatioEventArgs_StopMeEventCalledAfter10Sec()
+        {
+            AutoResetEvent eventRaised = new AutoResetEvent(false);
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                args.StopMeEvent += (o, eventArgs) =>
+                {
+                    eventRaised.Set();
+                };
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015")});
+
+            Assert.IsTrue(eventRaised.WaitOne(TimeSpan.FromSeconds(11)));
+        }
+
+        [Test]
+        public void EventHandler_NotificatioEventArgs_StopMeEventNotCalledBefore10Sec()
+        {
+            AutoResetEvent eventRaised = new AutoResetEvent(false);
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                args.StopMeEvent += (o, eventArgs) =>
+                {
+                    eventRaised.Set();
+                };
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> { new ATMTransponderData("F12", 17650, 29874, 5000, "2015") });
+
+            Assert.IsFalse(eventRaised.WaitOne(TimeSpan.FromSeconds(9)));
         }
 
         [Test]
