@@ -35,7 +35,7 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             var separationRaised = false;
             ATMWarning.WarningEvent += (sender, args) => separationRaised = true;
 
-            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData {Tag = "F12", Timestamp = "2015", Coordinate = new ATMCoordinate(17650, 29874, 5000), CompassCourse = 0, HorizontalVelocity = 0},
                 new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
 
             Assert.That(separationRaised, Is.True);

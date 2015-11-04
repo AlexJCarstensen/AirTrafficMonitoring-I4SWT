@@ -26,14 +26,6 @@ namespace AirTrafficMonitoring.Integration.Test
             _atmDataDecoder = new ATMDataDecoder(_transponderReceiver,
                 _atmDataConverter = new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()),
                 new ATMEventHandler());
-
-            //_list.Add(new ATMTransponderData("F12", new ATMCoordinate(14642, 13606,5600), "20151012134322345"));
-            //_list.Add(new ATMTransponderData("AB34", new ATMCoordinate(88083, 24432,4321), "20151012134323345"));
-            //_list.Add(new ATMTransponderData("ABKH2", new ATMCoordinate(89083,25432,3423), "20151012134324345"));
-           
-            /*_list.Add("F12;14642;13606;5600;20151012134322345");
-            _list.Add("AB34;88083;24432;4321;20151012134323345");
-            _list.Add("ABKH2;89083;25432;3423;20151012134324345");*/
         }
 
         [Test]
