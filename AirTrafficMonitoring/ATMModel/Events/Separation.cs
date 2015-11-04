@@ -19,6 +19,7 @@ namespace ATMModel.Events
         {
             List<WarningEventArgs> localNotifiedEvents = new List<WarningEventArgs>(_notifiedEvents);
             _notifiedEvents.Clear();
+            
             using (var e = newTransponderDatas.GetEnumerator())
             {
                 while (e.MoveNext())
@@ -27,27 +28,27 @@ namespace ATMModel.Events
                     {
                         var vertical = (item.Coordinate.Z - e.Current.Coordinate.Z) < 300 &&
                                         (item.Coordinate.Z - e.Current.Coordinate.Z) > -300;
-                        var horizontal = Math.Atan2(item.Coordinate.Y - e.Current.Coordinate.Y, item.Coordinate.X - e.Current.Coordinate.X) < 5000;
+                        var horizontal = Math.Sqrt(Math.Pow(item.Coordinate.Y - e.Current.Coordinate.Y, 2) + Math.Pow(item.Coordinate.X - e.Current.Coordinate.X, 2)) < 5000;
 
                         if (!vertical || !horizontal || item.Tag == e.Current.Tag) continue;
 
                         var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation", item.Timestamp);
-                        if(_notifiedEvents.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
+                        if (_notifiedEvents.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
 
                         if (
                             localNotifiedEvents.Any(
                                 t =>
-                                    t.Tag1 == item.Tag 
-                                    || t.Tag1 == e.Current.Tag 
-                                    && t.Tag2 == item.Tag 
+                                    t.Tag1 == item.Tag
+                                    || t.Tag1 == e.Current.Tag
+                                    && t.Tag2 == item.Tag
                                     || t.Tag2 == e.Current.Tag))
                         {
                             _notifiedEvents.Add(currentNotification);
                             localNotifiedEvents.Remove(localNotifiedEvents.First(
                                 t =>
-                                    t.Tag1 == item.Tag 
-                                    || t.Tag1 == e.Current.Tag 
-                                    && t.Tag2 == item.Tag 
+                                    t.Tag1 == item.Tag
+                                    || t.Tag1 == e.Current.Tag
+                                    && t.Tag2 == item.Tag
                                     || t.Tag2 == e.Current.Tag));
                             continue;
                         }
