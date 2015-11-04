@@ -89,5 +89,35 @@ namespace AirTrafficMonitoring.Integration.Test
             Assert.That(list?.Count, Is.EqualTo(3));
         }
 
+        [Test]
+        public void Convert_ValidString_returnItem()
+        {
+            var recievedItemIsValid = false;
+            _atmDataDecoder._event += (sender, datas) =>
+            {
+                if (datas.ToList().Count > 0 && datas.ToList().ElementAt(0).Tag == "FHT3V")
+                    recievedItemIsValid = true;
+            };
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string> { "FHT3V;14642;13606;5600;20151012134322345"});
+
+            Assert.IsTrue(recievedItemIsValid);
+        }
+
+        [Test]
+        public void Convert_InvalidString_returnEmptyList()
+        {
+            var recievedItemIsValid = false;
+            _atmDataDecoder._event += (sender, datas) =>
+            {
+                if (datas.ToList().Count > 0)
+                    recievedItemIsValid = true;
+            };
+            _transponderReceiver.TransponderDataReady +=
+                Raise.Event<TransponderDataReadyHandler>(new List<string> { "FHT3V;14642;13606;499;20151012134322345" });
+
+            Assert.IsFalse(recievedItemIsValid);
+        }
+
     }
 }
