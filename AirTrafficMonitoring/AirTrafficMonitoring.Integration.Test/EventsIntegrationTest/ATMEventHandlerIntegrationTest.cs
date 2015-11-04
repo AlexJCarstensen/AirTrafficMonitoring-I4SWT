@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using ATMModel.Data;
 using ATMModel.Events;
 using NSubstitute;
 using NUnit.Framework;
@@ -23,6 +26,159 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             _trackLeftAirspace = new TrackLeftAirspace(_atmLogEvent);
             _atmEventHandler = new ATMEventHandler(new List<ATMWarning> {_separation}, new List<ATMNotification> {_trackEnteredAirspace, _trackLeftAirspace});
         }
-        
+
+        [Test]
+        public void EventHandler_OneSeparation_SeparationRaised()
+        {
+            var separationRaised = false;
+            ATMWarning.WarningEvent += (sender, args) => separationRaised = true;
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+
+            Assert.That(separationRaised, Is.True);
+        }
+
+        [Test]
+        public void EventHandler_NoSeparation_SeparationNotRaised()
+        {
+            var separationRaised = false;
+            ATMWarning.WarningEvent += (sender, args) => separationRaised = true;
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",87150, 29274, 5900, "2015")});
+
+            Assert.That(separationRaised, Is.False);
+        }
+
+        [Test]
+        public void EventHandler_TwoTrackEntered_TwoEventRaised()
+        {
+            var eventCounter = 0;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if(args.EventName == "TrackEnteredAirspace")
+                    eventCounter++;
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+
+            Assert.That(eventCounter, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void EventHandler_NoTrackEntered_EventNotRaised()
+        {
+            var eventCounter = 0;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if (args.EventName == "TrackEnteredAirspace")
+                    eventCounter++;
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData>());
+
+            Assert.That(eventCounter, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void EventHandler_TwoTrackLeft_TwoEventRaised()
+        {
+            var eventCounter = 0;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if (args.EventName == "TrackLeftAirspace")
+                    eventCounter++;
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+            _atmEventHandler.Handle(new List<IATMTransponderData>());
+
+            Assert.That(eventCounter, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void EventHandler_Loggning_SeparationEvent()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var separation = new Separation();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { separation }, new List<ATMNotification> { _trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("EventHandler_Log_SeparationEventTest",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_SeparationEventTest");
+
+            Assert.IsTrue(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_NotLoggning_SeparationEventNotRaised()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var separation = new Separation();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { separation }, new List<ATMNotification> { _trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("EventHandler_Log_SeparationEventTest",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5500, "2015")});
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_SeparationEventTest");
+
+            Assert.IsFalse(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_Logging_TrackEnteredAirspaceEvent()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var trackEnteredAirspace = new TrackEnteredAirspace();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { _separation }, new List<ATMNotification> { trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("EventHandler_Log_TrackEnteredAirspaceEventTest",17650, 29874, 5000, "2015")});
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_TrackEnteredAirspaceEventTest");
+
+            Assert.IsTrue(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_NotLogging_TrackEnteredAirspaceEventNotRaised()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var trackEnteredAirspace = new TrackEnteredAirspace();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { _separation }, new List<ATMNotification> { trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData>());
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_TrackEnteredAirspaceEventTest");
+
+            Assert.False(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_Logging_TrackLeftAirspaceEvent()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var trackLeftAirspace = new TrackLeftAirspace();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { _separation }, new List<ATMNotification> { _trackEnteredAirspace, trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> { new ATMTransponderData("EventHandler_Log_TrackLeftAirspaceEventTest", 17650, 29874, 5000, "2015") });
+            atmEventHandler.Handle(new List<IATMTransponderData> ());
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_TrackLeftAirspaceEventTest");
+
+            Assert.IsTrue(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_NotLogging_TrackLeftAirspaceEventNotRaised()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var trackLeftAirspace = new TrackLeftAirspace();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { _separation }, new List<ATMNotification> { _trackEnteredAirspace, trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> { new ATMTransponderData("EventHandler_Log_TrackLeftAirspaceEventTest", 17650, 29874, 5000, "2015") });
+            atmEventHandler.Handle(new List<IATMTransponderData> { new ATMTransponderData("EventHandler_Log_TrackLeftAirspaceEventTest", 17650, 29874, 5900, "2015") });
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_TrackLeftAirspaceEventTest");
+
+            Assert.False(fileConsistOurString);
+        }
     }
 }
