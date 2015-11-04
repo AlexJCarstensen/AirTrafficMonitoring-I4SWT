@@ -14,7 +14,7 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         [SetUp]
         public void Setup()
         {
-            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent", 100);
+            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent","2015",  100);
             
         }
 
