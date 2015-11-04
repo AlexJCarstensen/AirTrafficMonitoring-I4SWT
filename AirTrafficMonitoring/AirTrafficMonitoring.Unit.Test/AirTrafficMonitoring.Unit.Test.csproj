@@ -59,6 +59,7 @@
     <Compile Include="DataUnitTest\ATMTransponderDataUnitTest.cs" />
     <Compile Include="ConvertersUnitTest\ATMVelocityConverterUnitTest.cs" />
     <Compile Include="EventsUnitTest\ATMEventHandlerUnitTest.cs" />
+    <Compile Include="EventsUnitTest\ATMLoggerUnitTest.cs" />
     <Compile Include="EventsUnitTest\NotificationEventArgsUnitTest.cs" />
     <Compile Include="EventsUnitTest\SeparationUnitTest.cs" />
     <Compile Include="EventsUnitTest\TrackEnteredAirspaceUnitTest.cs" />

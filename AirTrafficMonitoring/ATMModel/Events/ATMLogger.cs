@@ -2,7 +2,7 @@ using System.IO;
 
 namespace ATMModel.Events
 {
-    class ATMLogger : IATMLogEvent
+    public class ATMLogger : IATMLogEvent
     {
         private readonly string _path;
 
