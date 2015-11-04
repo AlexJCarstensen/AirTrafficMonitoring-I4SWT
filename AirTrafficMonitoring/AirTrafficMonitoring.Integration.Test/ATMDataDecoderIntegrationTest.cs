@@ -1,6 +1,8 @@
 ﻿using ATMModel;
 using ATMModel.Converters;
+using ATMModel.Data;
 using ATMModel.Events;
+using NSubstitute;
 using NUnit.Framework;
 using TransponderReceiver;
 
@@ -16,7 +18,10 @@ namespace AirTrafficMonitoring.Integration.Test
         [SetUp]
         public void Setup()
         {
-            //_atmDataDecoder = new ATMDataDecoder(_transponderReceiver =, );
+            _atmDataDecoder = new ATMDataDecoder(Substitute.For<ITransponderReceiver>(),
+                _atmDataConverter = new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()),
+                new ATMEventHandler());
         }
+
     }
 }
