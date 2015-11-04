@@ -89,5 +89,11 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
             var angleCheck = _uut.Convert(_list);
             Assert.That(angleCheck.ElementAt(0).CompassCourse, Is.EqualTo(20));
         }
+
+        [Test]
+        public void Convert_NotValidData_NoDataReturn()
+        {
+            Assert.IsFalse(_uut.Convert(new List<string> {"F12;1234;3425;300;2015"}).Count > 0);
+        }
     }
 }

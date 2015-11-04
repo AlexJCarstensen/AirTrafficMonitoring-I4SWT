@@ -83,7 +83,11 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
             data2.Coordinate = locCoordinate;
 
             int warningEventCalled = 0;
-            ATMWarning.WarningEvent += (sender, args) => warningEventCalled++;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if(args.Timestamp == data2.Timestamp && args.Tag1 == data2.Tag && args.Tag2 == data1.Tag && args.EventName == "Separation" && args.Active)
+                    warningEventCalled++;
+            };
             _uut.DetectWarning(new List<IATMTransponderData> {data1, data2});
 
             Assert.That(warningEventCalled, Is.EqualTo(1));

@@ -38,7 +38,11 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         public void DetectNotification_OneEnters_OneEvent()
         {
             int notificationEventCalled = 0;
-            ATMNotification.NotificationEvent += (sender, args) => notificationEventCalled++;
+            ATMNotification.NotificationEvent += (sender, args) =>
+            {
+                if(args.Tag == "item1" && args.EventName == "TrackEnteredAirspace")
+                    notificationEventCalled++;
+            };
 
             _uut.DetectNotification(new List<IATMTransponderData>(), new List<IATMTransponderData> {_atmTransponderData1});
             Assert.That(notificationEventCalled, Is.EqualTo(1));
