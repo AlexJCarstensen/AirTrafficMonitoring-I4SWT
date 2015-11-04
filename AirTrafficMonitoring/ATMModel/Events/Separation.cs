@@ -31,7 +31,7 @@ namespace ATMModel.Events
 
                         if (!vertical || !horizontal || item.Tag == e.Current.Tag) continue;
 
-                        var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation");
+                        var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation", item.Timestamp);
                         if(_notifiedEvents.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
 
                         if (
@@ -59,7 +59,8 @@ namespace ATMModel.Events
             }
             foreach (var t in localNotifiedEvents)
             {
-                Notify(new WarningEventArgs(t.Tag1, t.Tag2, "Separation", false));
+                Notify(new WarningEventArgs(t.Tag1, t.Tag2, "Separation", t.Timestamp, false));
+                _atmLog.Log(t.Timestamp + " Separation Warning " + t.Tag1 + " " + t.Tag2 + " Deactivated");
             }
         }
     }
