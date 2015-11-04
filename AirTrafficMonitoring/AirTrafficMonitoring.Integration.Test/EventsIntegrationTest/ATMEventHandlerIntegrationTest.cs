@@ -43,10 +43,50 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
         public void EventHandler_NoSeparation_SeparationNotRaised()
         {
             var separationRaised = false;
-            ATMWarning.WarningEvent += (sender, args) => separationRaised = true;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if(args.Active)
+                    separationRaised = true;
+            };
 
             _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
                 new ATMTransponderData("F15",87150, 29274, 5900, "2015")});
+
+            Assert.That(separationRaised, Is.False);
+        }
+
+        [Test]
+        public void EventHandler_SeparationNotActive_SeparationRaisedWithNotActive()
+        {
+            var separationRaised = false;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if (!args.Active)
+                    separationRaised = true;
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5700, "2015")});
+
+            Assert.That(separationRaised, Is.True);
+        }
+
+        [Test]
+        public void EventHandler_SeparationActive_SeparationRaisedWithNotActiveNotCalled()
+        {
+            var separationRaised = false;
+            ATMWarning.WarningEvent += (sender, args) =>
+            {
+                if (!args.Active)
+                    separationRaised = true;
+            };
+
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+            _atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5200, "2015")});
 
             Assert.That(separationRaised, Is.False);
         }
@@ -177,6 +217,39 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             atmEventHandler.Handle(new List<IATMTransponderData> { new ATMTransponderData("EventHandler_Log_TrackLeftAirspaceEventTest", 17650, 29874, 5900, "2015") });
 
             var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("EventHandler_Log_TrackLeftAirspaceEventTest");
+
+            Assert.False(fileConsistOurString);
+        }
+
+        [Test]
+        public void EventHandler_Logging_SeparationNotActiveRaisedWithNotActive()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var separation = new Separation();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { separation }, new List<ATMNotification> { _trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17650, 29874, 5070, "2015")});
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5700, "2015")});
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("Deactivated");
+
+            Assert.True(fileConsistOurString);
+
+        }
+
+        [Test]
+        public void EventHandler_NotLogging_SeparationRaisedWithNotActiveNotCalled()
+        {
+            File.WriteAllText(@"ATMLogger.txt", "Cleared");
+            var separation = new Separation();
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { separation }, new List<ATMNotification> { _trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5200, "2015")});
+
+            var fileConsistOurString = (File.ReadLines(@"ATMLogger.txt").Last()).Contains("Deactivated");
 
             Assert.False(fileConsistOurString);
         }
