@@ -289,5 +289,21 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
 
             Assert.False(fileConsistOurString);
         }
+
+        [Test]
+        public void EventHandler_Logging_CheckFileExists_ReturnTrue()
+        {
+            if (File.Exists("ATMLogger.txt"))
+                File.Delete("ATMLogger.txt");
+            var separation = new Separation();
+
+            var atmEventHandler = new ATMEventHandler(new List<ATMWarning> { separation }, new List<ATMNotification> { _trackEnteredAirspace, _trackLeftAirspace });
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5070, "2015")});
+            atmEventHandler.Handle(new List<IATMTransponderData> {new ATMTransponderData("F12",17650, 29874, 5000, "2015"),
+                new ATMTransponderData("F15",17150, 29274, 5200, "2015")});
+            var fileExists = (File.Exists("ATMLogger.txt"));
+            Assert.That(fileExists, Is.EqualTo(true));
+        }
     }
 }
