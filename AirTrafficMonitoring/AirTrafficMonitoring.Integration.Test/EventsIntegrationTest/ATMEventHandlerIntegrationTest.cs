@@ -141,7 +141,7 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             Assert.That(eventCounter, Is.EqualTo(2));
         }
 
-        [Test]
+        [Test][Category("Slow Tests")]
         public void EventHandler_NotificatioEventArgs_StopMeEventCalledAfter10Sec()
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
@@ -158,7 +158,7 @@ namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
             Assert.IsTrue(eventRaised.WaitOne(TimeSpan.FromSeconds(11)));
         }
 
-        [Test]
+        [Test][Category("Slow Tests")]
         public void EventHandler_NotificatioEventArgs_StopMeEventNotCalledBefore10Sec()
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
