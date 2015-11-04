@@ -18,7 +18,7 @@ namespace ATMModel.Events
         {
             foreach (var item in newTransponderDatas.Where(item => !oldTransponderDatas.Exists(t => t.Tag == item.Tag)))
             {
-                Notify(new NotificationEventArgs(item.Tag, "TrackEnteredAirspace"));
+                Notify(new NotificationEventArgs(item.Tag, "TrackEnteredAirspace", item.Timestamp));
                 _atmLog.Log(item.Timestamp + " TrackEnteredAirspace Notification " + item.Tag);
             }
         }

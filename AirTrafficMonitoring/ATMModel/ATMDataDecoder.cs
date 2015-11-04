@@ -15,11 +15,11 @@ namespace ATMModel
         public event EventHandler<IEnumerable<IATMTransponderData>> _event;
         
 
-        public ATMDataDecoder(ITransponderReceiver transponderReceiver, IATMDataConverter dataConverter,
-            IATMEventHandler eventHandler)
+        public ATMDataDecoder(ITransponderReceiver transponderReceiver, IATMDataConverter dataConverter = null,
+            IATMEventHandler eventHandler = null)
         {
-            _dataConverter = dataConverter;
-            _eventHandler = eventHandler;
+            _dataConverter = dataConverter ?? new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter());
+            _eventHandler = eventHandler ?? new ATMEventHandler();
 
             transponderReceiver.TransponderDataReady += OnTransponderDataReady;
         }

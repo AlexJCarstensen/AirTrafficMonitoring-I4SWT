@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitoring.Unit.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitoring.Integration.Test", "AirTrafficMonitoring.Integration.Test\AirTrafficMonitoring.Integration.Test.csproj", "{3917D583-D57F-48CD-99FB-D72D7DD26A47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMViewModel", "ATMViewModel\ATMViewModel.csproj", "{0E6181C0-2D77-4DC4-9537-F6EBD29C54A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMView", "ATMView\ATMView.csproj", "{6C781512-70F9-4308-9A9F-D5EABB441FC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3917D583-D57F-48CD-99FB-D72D7DD26A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3917D583-D57F-48CD-99FB-D72D7DD26A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3917D583-D57F-48CD-99FB-D72D7DD26A47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E6181C0-2D77-4DC4-9537-F6EBD29C54A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6181C0-2D77-4DC4-9537-F6EBD29C54A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6181C0-2D77-4DC4-9537-F6EBD29C54A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6181C0-2D77-4DC4-9537-F6EBD29C54A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C781512-70F9-4308-9A9F-D5EABB441FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C781512-70F9-4308-9A9F-D5EABB441FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C781512-70F9-4308-9A9F-D5EABB441FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C781512-70F9-4308-9A9F-D5EABB441FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

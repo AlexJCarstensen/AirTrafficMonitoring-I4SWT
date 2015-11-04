@@ -7,10 +7,11 @@ namespace ATMModel.Events
     {
         public event EventHandler StopMeEvent;
         private int _delayTime;
-        public NotificationEventArgs(string tag, string eventName, int delayTime = 10000)
+        public NotificationEventArgs(string tag, string eventName, string timestamp = "000000000000000", int delayTime = 10000)
         {
             Tag = tag;
             EventName = eventName;
+            Timestamp = timestamp;
             _delayTime = delayTime;
 
             var timer = new Timer {Interval = delayTime};
@@ -24,6 +25,7 @@ namespace ATMModel.Events
 
         public string Tag { get; }
         public string EventName { get; }
+        public string Timestamp { get; }
         
     }
 }
