@@ -121,5 +121,18 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
             _atmTransponderDataList = _atmDataConverter.Convert(locList);
             Assert.That(_atmTransponderDataList.Count, Is.EqualTo(0));
         }
+
+        [Test]
+        public void ATMDataConverter_Convert_ValidateXYZ()
+        {
+            var locList = new List<string>
+            {
+                "F12;15864;15414;41;20151012134326345",
+                "F15;15928;13014;43;20151012134326345",
+                "F13;15864;19314;5015;20151012134326345"
+            };
+            _atmTransponderDataList = _atmDataConverter.Convert(locList);
+            Assert.IsTrue(_atmTransponderDataList.ElementAt(0).Coordinate.Validate);
+        }
     }
 }
