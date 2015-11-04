@@ -26,11 +26,7 @@ namespace ATMModel.Events
                 {
                     foreach (var item in newTransponderDatas)
                     {
-                        var vertical = (item.Coordinate.Z - e.Current.Coordinate.Z) < 300 &&
-                                        (item.Coordinate.Z - e.Current.Coordinate.Z) > -300;
-                        var horizontal = Math.Sqrt(Math.Pow(item.Coordinate.Y - e.Current.Coordinate.Y, 2) + Math.Pow(item.Coordinate.X - e.Current.Coordinate.X, 2)) < 5000;
-
-                        if (!vertical || !horizontal || item.Tag == e.Current.Tag) continue;
+                        if (!SeparationCheck(e.Current, item) || item.Tag == e.Current.Tag) continue;
 
                         var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation", item.Timestamp);
                         if (_notifiedEvents.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
@@ -63,6 +59,14 @@ namespace ATMModel.Events
                 Notify(new WarningEventArgs(t.Tag1, t.Tag2, "Separation", t.Timestamp, false));
                 _atmLog.Log(t.Timestamp + " Separation Warning " + t.Tag1 + " " + t.Tag2 + " Deactivated");
             }
+        }
+
+        public bool SeparationCheck(IATMTransponderData data1, IATMTransponderData data2)
+        {
+            return (data2.Coordinate.Z - data1.Coordinate.Z) < 300 &&
+                (data2.Coordinate.Z - data1.Coordinate.Z) > -300 &&
+                Math.Sqrt(Math.Pow(data2.Coordinate.Y - data1.Coordinate.Y, 2) + 
+                Math.Pow(data2.Coordinate.X - data1.Coordinate.X, 2)) < 5000;
         }
     }
 }
