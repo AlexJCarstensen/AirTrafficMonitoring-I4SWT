@@ -20,6 +20,7 @@ namespace AirTrafficMonitoring.Unit.Test.DataUnitTest
         [Test]
         public void Tag_get_ReturnF22()
         {
+            _uut = new ATMTransponderData("F22", 3,4,5, "20150512145712542", 25, 54);
             Assert.That(_uut.Tag, Is.EqualTo("F22"));
         }
 
