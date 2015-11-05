@@ -52,19 +52,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATMIntegrationTestThirteen.cs" />
+    <Compile Include="ATMIntegrationTestNine.cs" />
     <Compile Include="ConvertersIntegrationTest\ATMIntegrationTestFour.cs" />
     <Compile Include="ConvertersIntegrationTest\ATMIntegrationTestThree.cs" />
     <Compile Include="ConvertersIntegrationTest\ATMIntegrationTestTwo.cs" />
     <Compile Include="DataIntegrationTest\ATMIntegrationTestOne.cs" />
-    <Compile Include="EventsIntegrationTest\ATMIntegrationTestTwelve.cs" />
     <Compile Include="EventsIntegrationTest\ATMIntegrationTestEight.cs" />
-    <Compile Include="EventsIntegrationTest\ATMIntegrationTestEleven.cs" />
     <Compile Include="EventsIntegrationTest\ATMIntegrationTestFive.cs" />
-    <Compile Include="EventsIntegrationTest\ATMIntegrationTestNine.cs" />
     <Compile Include="EventsIntegrationTest\ATMIntegrationTestSeven.cs" />
     <Compile Include="EventsIntegrationTest\ATMIntegrationTestSix.cs" />
-    <Compile Include="EventsIntegrationTest\ATMIntegrationTestTen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
