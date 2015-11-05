@@ -24,6 +24,13 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
             var angle = _uut.Convert(_atmCoordinate, newTestCoordinate);
             Assert.That(angle, Is.EqualTo(0));
         }
+        [Test]
+        public void Convert_ConvertTestSouth180_return180()
+        {
+            var newTestCoordinate = new ATMCoordinate(522, 145, 15453);
+            var angle = _uut.Convert(_atmCoordinate, newTestCoordinate);
+            Assert.That(angle, Is.EqualTo(180));
+        }
 
         [Test]
         public void ATMAngleConverter_ConvertInFirstKvadrant_return338point69()
