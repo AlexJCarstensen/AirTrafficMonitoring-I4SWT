@@ -1,4 +1,5 @@
 ﻿using ATMModel.Data;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace AirTrafficMonitoring.Unit.Test.DataUnitTest
@@ -7,12 +8,13 @@ namespace AirTrafficMonitoring.Unit.Test.DataUnitTest
     public class ATMTransponderDataUnitTest
     {
         private ATMTransponderData _uut;
-        
+        private IATMCoordinate _atmCoordinate;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new ATMTransponderData("F22", 2, 3, 4, "20150512145712542", 25, 54);
+            _atmCoordinate = Substitute.For<IATMCoordinate>();
+            _uut = new ATMTransponderData("F22", _atmCoordinate, "20150512145712542", 25, 54);
         }
 
         [Test]
@@ -24,16 +26,19 @@ namespace AirTrafficMonitoring.Unit.Test.DataUnitTest
         [Test]
         public void Coordinate_X_get_Return2()
         {
+            _atmCoordinate.X.Returns(2);
             Assert.That(_uut.Coordinate.X, Is.EqualTo(2));
         }
         [Test]
         public void Coordinate_Y_get_Return3()
         {
+            _atmCoordinate.Y.Returns(3);
             Assert.That(_uut.Coordinate.Y, Is.EqualTo(3));
         }
         [Test]
         public void Coordinate_Z_get_Return4()
         {
+            _atmCoordinate.Z.Returns(4);
             Assert.That(_uut.Coordinate.Z, Is.EqualTo(4));
         }
         [Test]
