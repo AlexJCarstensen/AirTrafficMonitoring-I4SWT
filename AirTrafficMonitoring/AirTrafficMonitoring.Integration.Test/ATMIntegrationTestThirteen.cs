@@ -11,7 +11,7 @@ using TransponderReceiver;
 namespace AirTrafficMonitoring.Integration.Test
 {
     [TestFixture]
-    public class ATMDataDecoderIntegrationTest
+    public class ATMIntegrationTestThirteen
     {
         private IATMDataDecoder _atmDataDecoder;
         private IATMDataConverter _atmDataConverter;

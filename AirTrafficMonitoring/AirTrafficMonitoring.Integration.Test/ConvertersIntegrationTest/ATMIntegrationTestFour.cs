@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
 {
     [TestFixture]
-    public class ATMDataConverterIntegrationTest
+    public class ATMIntegrationTestFour
     {
         private IATMDataConverter _atmDataConverter;
         private IATMAngleConverter _atmAngleConverter;

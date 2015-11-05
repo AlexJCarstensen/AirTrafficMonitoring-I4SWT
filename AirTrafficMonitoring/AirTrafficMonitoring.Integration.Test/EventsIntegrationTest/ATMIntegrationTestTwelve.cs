@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace AirTrafficMonitoring.Integration.Test.EventsIntegrationTest
 {
     [TestFixture]
-    public class ATMEventHandlerIntegrationTest
+    public class ATMIntegrationTestTwelve
     {
         private ATMEventHandler _atmEventHandler;
         private Separation _separation;
