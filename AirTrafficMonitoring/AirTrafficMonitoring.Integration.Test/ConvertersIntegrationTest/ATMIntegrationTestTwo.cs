@@ -13,30 +13,47 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
         private IATMDataConverter _atmDataConverter;
         private IATMAngleConverter _atmAngleConverter;
         private IATMTransponderData _atmTransponderData;
-        private List<string> _list;
-        private List<IATMTransponderData> _atmTransponderDataList;
 
         [SetUp]
         public void Setup()
         {
             _atmDataConverter = new ATMDataConverter(_atmAngleConverter = new ATMAngleConverter(), Substitute.For<IATMVelocityConverter>());
-            _atmTransponderData = new ATMTransponderData("F12", new ATMCoordinate(20453, 46569, 15203), "201505111104253");
-
-            _list = new List<string>
-            {
-                "F12;87083;23432;5000;20151012134322345",
-                "AB34;88083;24432;4321;20151012134323345",
-                "ABKH2;89083;25432;3423;20151012134324345"
-            };
-            _atmTransponderDataList = new List<IATMTransponderData>();
-            
+            _atmDataConverter.Convert(new List<string> {"F12;20453;46569;15203;201505111104253"});
         }
-        /*
+        
         [Test]
         public void ConvertAngle_CheckNorth_return0()
         {
-            _atmTransponderDataList = _atmDataConverter.Convert(_list);
-            Assert.That(_atmTransponderDataList.ElementAt(0).CompassCourse, Is.EqualTo(20));
-        }*/
+            var item = _atmDataConverter.Convert(new List<string> {"F12;20453;56569;15203;201505111104253"});
+            Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ConvertAngle_CheckSouth_return180()
+        {
+            var item = _atmDataConverter.Convert(new List<string> { "F12;20453;36569;15203;201505111104253" });
+            Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(180));
+        }
+
+        [Test]
+        public void ConvertAngle_CheckWest_return90()
+        {
+            var item = _atmDataConverter.Convert(new List<string> { "F12;10453;46569;15203;201505111104253" });
+            Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(90));
+        }
+
+        [Test]
+        public void ConvertAngle_CheckEast_return270()
+        {
+            var item = _atmDataConverter.Convert(new List<string> { "F12;40453;46569;15203;201505111104253" });
+            Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(270));
+        }
+
+        [Test]
+        public void ConvertAngle_CheckNorthEast_return315()
+        {
+            var item = _atmDataConverter.Convert(new List<string> { "F12;50152;76268;15203;201505111104253" });
+            Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(315));
+        }
     }
 }
