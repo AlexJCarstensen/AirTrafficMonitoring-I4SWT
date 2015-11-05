@@ -42,5 +42,19 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
             var velocity = _uut.Convert(new ATMCoordinate(6724, 3971, 0), new ATMCoordinate(6724, 8530, 0), "06923", "29923");
             Assert.That(velocity, Is.EqualTo(198.22));
         }
+
+        [Test]
+        public void ATMVelocityConverter_ConvertTimeMinus1_Return0()
+        {
+            var velocity = _uut.Convert(new ATMCoordinate(6724, 3971, 0), new ATMCoordinate(6724, 4000, 0), "06923", "06922");
+            Assert.That(velocity, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ATMVelocityConverter_ConvertTimeSame_Return0()
+        {
+            var velocity = _uut.Convert(new ATMCoordinate(6724, 3971, 0), new ATMCoordinate(6724, 4000, 0), "06923", "06923");
+            Assert.That(velocity, Is.EqualTo(0));
+        }
     }
 }
