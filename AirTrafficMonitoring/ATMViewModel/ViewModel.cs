@@ -20,7 +20,6 @@ namespace ATMViewModel
         public ObservableCollection<IATMTransponderData> TransponderDataItem { get; }
 
         public ObservableCollection<ATMEventInfo> NotificationCollection { get; } 
-        public ObservableCollection<WarningEventArgs> WarningCollection { get; } 
         
 
         public ViewModel()
@@ -29,7 +28,6 @@ namespace ATMViewModel
             //var atmModelObj = new ATMDataDecoder(new FakeTransponderSource());
             this.TransponderDataItem = new ObservableCollection<IATMTransponderData>();
             NotificationCollection = new ObservableCollection<ATMEventInfo>();
-            WarningCollection = new ObservableCollection<WarningEventArgs>();
 
             atmModelObj._event += (sender, items) =>
             {
