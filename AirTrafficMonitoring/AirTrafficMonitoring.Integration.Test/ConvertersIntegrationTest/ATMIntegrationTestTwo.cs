@@ -56,4 +56,5 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
             Assert.That(item.ElementAt(0).CompassCourse, Is.EqualTo(315));
         }
     }
+    //
 }
