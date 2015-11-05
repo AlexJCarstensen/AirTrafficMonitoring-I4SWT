@@ -12,7 +12,6 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
     {
         private IATMDataConverter _atmDataConverter;
         private IATMAngleConverter _atmAngleConverter;
-        private IATMTransponderData _atmTransponderData;
 
         [SetUp]
         public void Setup()
