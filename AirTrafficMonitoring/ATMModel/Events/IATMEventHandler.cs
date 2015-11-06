@@ -5,6 +5,6 @@ namespace ATMModel.Events
 {
     public interface IATMEventHandler
     {
-        void Handle(List<IATMTransponderData> atmTransponderDatas);
+        void Handle(ICollection<IATMTransponderData> atmTransponderDatas);
     }
 }

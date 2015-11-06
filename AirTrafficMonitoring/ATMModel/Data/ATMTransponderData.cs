@@ -5,22 +5,22 @@
         public ATMTransponderData()
         {
         }
-        public ATMTransponderData(string tag, int x, int y, int z, string timestamp, int hv = 0, int cc = 0)
+        public ATMTransponderData(string tag, int coordinateX, int coordinateY, int coordinateZ, string timestamp, int horizontalVelocity = 0, int compassCourse = 0)
         {
             Tag = tag;
-            Coordinate = new ATMCoordinate(x, y, z);
+            Coordinate = new ATMCoordinate(coordinateX, coordinateY, coordinateZ);
             Timestamp = timestamp;
-            HorizontalVelocity = hv;
-            CompassCourse = cc;
+            HorizontalVelocity = horizontalVelocity;
+            CompassCourse = compassCourse;
         }
 
-        public ATMTransponderData(string tag, IATMCoordinate coordinate, string timestamp, int hv = 0, int cc = 0)
+        public ATMTransponderData(string tag, IATMCoordinate coordinate, string timestamp, int horizontalVelocity = 0, int compassCourse = 0)
         {
             Tag = tag;
             Coordinate = coordinate;
             Timestamp = timestamp;
-            HorizontalVelocity = hv;
-            CompassCourse = cc;
+            HorizontalVelocity = horizontalVelocity;
+            CompassCourse = compassCourse;
         }
 
         public int CompassCourse { get; set; }
