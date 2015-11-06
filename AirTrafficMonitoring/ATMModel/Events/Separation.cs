@@ -64,10 +64,10 @@ namespace ATMModel.Events
 
         public bool SeparationCheck(IATMTransponderData data1, IATMTransponderData data2)
         {
-            return (data2.Coordinate.Z - data1.Coordinate.Z) < 300 &&
-                (data2.Coordinate.Z - data1.Coordinate.Z) > -300 &&
-                Math.Sqrt(Math.Pow(data2.Coordinate.Y - data1.Coordinate.Y, 2) + 
-                Math.Pow(data2.Coordinate.X - data1.Coordinate.X, 2)) < 5000;
+            return data2 != null && ((data2.Coordinate.Z - data1.Coordinate.Z) < 300 &&
+                                     (data2.Coordinate.Z - data1.Coordinate.Z) > -300 &&
+                                     Math.Sqrt(Math.Pow(data2.Coordinate.Y - data1.Coordinate.Y, 2) + 
+                                               Math.Pow(data2.Coordinate.X - data1.Coordinate.X, 2)) < 5000);
         }
     }
 }
