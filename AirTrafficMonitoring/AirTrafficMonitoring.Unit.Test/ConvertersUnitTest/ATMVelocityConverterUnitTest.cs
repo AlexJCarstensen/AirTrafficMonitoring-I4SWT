@@ -1,4 +1,5 @@
-﻿using ATMModel.Converters;
+﻿using System;
+using ATMModel.Converters;
 using ATMModel.Data;
 using NUnit.Framework;
 
@@ -55,6 +56,18 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
         {
             var velocity = _uut.Convert(new ATMCoordinate(6724, 3971, 0), new ATMCoordinate(6724, 4000, 0), "06923", "06923");
             Assert.That(velocity, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ATMVelocityConverter_dataNULL_ThrowNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.Convert(null, null, null, null));
+        }
+
+        [Test]
+        public void ATMVelocityConverter_OneParameterNULL_ThrowNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.Convert(null, new ATMCoordinate(4,34,34), "", ""));
         }
     }
 }

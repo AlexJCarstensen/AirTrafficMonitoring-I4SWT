@@ -1,4 +1,5 @@
-﻿using ATMModel.Converters;
+﻿using System;
+using ATMModel.Converters;
 using ATMModel.Data;
 using NUnit.Framework;
 
@@ -65,6 +66,24 @@ namespace AirTrafficMonitoring.Unit.Test.ConvertersUnitTest
         {
             var angle = _uut.Convert(new ATMCoordinate(-2975, -3408, 5624), new ATMCoordinate(-2301, -6320, 93283));
             Assert.That(angle, Is.EqualTo(193.03));
+        }
+
+        [Test]
+        public void Convert_ParameterNull_ThrowsArgNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.Convert(null, null));
+        }
+
+        [Test]
+        public void Convert_FirstParameterNull_ThrowsArgNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.Convert(null, new ATMCoordinate(12,12,23)));
+        }
+
+        [Test]
+        public void Convert_SecondParameterNull_ThrowsArgNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.Convert(new ATMCoordinate(12, 12, 23), null));
         }
     }
 }

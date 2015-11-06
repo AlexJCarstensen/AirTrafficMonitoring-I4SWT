@@ -4,6 +4,9 @@ using ATMModel.Data;
 
 namespace ATMModel.Events
 {
+    /// <summary>
+    /// This class delegates data to all warning and notification collection
+    /// </summary>
     public class ATMEventHandler : IATMEventHandler
     {
         private readonly IEnumerable<ATMWarning> _atmWarnings;
@@ -16,6 +19,10 @@ namespace ATMModel.Events
             _atmNotifications = atmNotifications ?? new List<ATMNotification> { new TrackEnteredAirspace(), new TrackLeftAirspace() };
         }
 
+        /// <summary>
+        /// Delelegates data to all warning and notification 
+        /// </summary>
+        /// <param name="atmTransponderDatas"></param>
         public void Handle(ICollection<IATMTransponderData> atmTransponderDatas)
         {
             foreach (var warning in _atmWarnings)

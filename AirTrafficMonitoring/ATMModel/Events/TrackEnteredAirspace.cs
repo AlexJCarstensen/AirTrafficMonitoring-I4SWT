@@ -4,15 +4,30 @@ using ATMModel.Data;
 
 namespace ATMModel.Events
 {
+    /// <summary>
+    /// this class implement notification
+    /// Handling track entered event
+    /// </summary>
     public class TrackEnteredAirspace : ATMNotification
     {
         private readonly IATMLogEvent _atmLog;
 
-        public TrackEnteredAirspace(IATMLogEvent aTMLogEvent = null)
+        /// <summary>
+        /// If special implementation og atm log needed, can this be set from constructor
+        /// </summary>
+        /// <param name="atmLogEvent"></param>
+        public TrackEnteredAirspace(IATMLogEvent atmLogEvent = null)
         {
-            _atmLog = aTMLogEvent ?? new ATMLogger();
+            _atmLog = atmLogEvent ?? new ATMLogger();
         }
 
+        /// <summary>
+        /// Checks for any new tracks entered airspace
+        /// track entered event raised if any new tracks exist
+        /// new event logged to the file
+        /// </summary>
+        /// <param name="oldTransponderDatas"></param>
+        /// <param name="newTransponderDatas"></param>
         public override void DetectNotification(ICollection<IATMTransponderData> oldTransponderDatas, ICollection<IATMTransponderData> newTransponderDatas)
         {
             foreach (var item in newTransponderDatas.Where(item => oldTransponderDatas.All(t => t.Tag != item.Tag)))

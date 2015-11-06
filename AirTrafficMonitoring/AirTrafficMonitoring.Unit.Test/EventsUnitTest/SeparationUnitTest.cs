@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ATMModel.Data;
 using ATMModel.Events;
 using NSubstitute;
@@ -161,6 +162,18 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
             _uut.DetectWarning(new List<IATMTransponderData> { data1, data2 });
 
             Assert.IsFalse(activeIsFalse);
+        }
+
+        [Test]
+        public void DetectWarning_ListWithNullObjects_ThrowArgNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.DetectWarning(new List<IATMTransponderData> {null, null}));
+        }
+
+        [Test]
+        public void DetectWarning_ParameterNull_ThrowArgNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _uut.DetectWarning(null));
         }
     }
 }

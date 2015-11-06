@@ -4,6 +4,9 @@ using ATMModel.Data;
 
 namespace ATMModel.Events
 {
+    /// <summary>
+    /// This class notify all notification with a static event
+    /// </summary>
     public abstract class ATMNotification
     {
         public static event EventHandler<NotificationEventArgs> NotificationEvent;

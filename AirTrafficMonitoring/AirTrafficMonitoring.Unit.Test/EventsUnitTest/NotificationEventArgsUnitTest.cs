@@ -13,7 +13,7 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         [SetUp]
         public void Setup()
         {
-            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent","2015",  100);
+            _notificationEventArgs = new NotificationEventArgs("F12", "testEvent","20156789",  100);
             
         }
 
@@ -29,7 +29,11 @@ namespace AirTrafficMonitoring.Unit.Test.EventsUnitTest
         public void StopMeEvent_IsCalled_After100milliSecond()
         {
             AutoResetEvent eventRaised = new AutoResetEvent(false);
-            _notificationEventArgs.StopMeEvent += (sender, eventArgs) => { eventRaised.Set(); };
+            _notificationEventArgs.StopMeEvent += (sender, eventArgs) =>
+            {
+                if(((NotificationEventArgs)sender).Timestamp == "20156789")
+                    eventRaised.Set();
+            };
             Assert.IsTrue(eventRaised.WaitOne(TimeSpan.FromMilliseconds(300)));
         }
     }

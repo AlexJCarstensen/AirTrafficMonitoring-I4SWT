@@ -1,5 +1,8 @@
 ﻿namespace ATMModel.Data
 {
+    /// <summary>
+    /// This class represent a track or flight
+    /// </summary>
     public class ATMTransponderData : IATMTransponderData
     {
         public ATMTransponderData()
