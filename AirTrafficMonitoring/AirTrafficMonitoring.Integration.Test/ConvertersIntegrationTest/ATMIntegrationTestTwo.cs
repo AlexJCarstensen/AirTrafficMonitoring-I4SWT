@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ATMModel.Converters;
-using ATMModel.Data;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -11,12 +10,12 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
     public class ATMIntegrationTestTwo
     {
         private IATMDataConverter _atmDataConverter;
-        private IATMAngleConverter _atmAngleConverter;
+        
 
         [SetUp]
         public void Setup()
         {
-            _atmDataConverter = new ATMDataConverter(_atmAngleConverter = new ATMAngleConverter(), Substitute.For<IATMVelocityConverter>());
+            _atmDataConverter = new ATMDataConverter( new ATMAngleConverter(), Substitute.For<IATMVelocityConverter>());
             _atmDataConverter.Convert(new List<string> {"F12;20453;46569;15203;201505111104253"});
         }
         

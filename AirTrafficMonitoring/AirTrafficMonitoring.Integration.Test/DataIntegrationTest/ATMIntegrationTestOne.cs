@@ -7,7 +7,7 @@ namespace AirTrafficMonitoring.Integration.Test.DataIntegrationTest
     public class ATMIntegrationTestOne
     {
         private ATMTransponderData _atmTransponderData;
-        private IATMCoordinate _atmCoordinate;
+        
         [SetUp]
         public void Setup()
         {

@@ -26,7 +26,7 @@ namespace ATMViewModel
         {
             var atmModelObj = new ATMDataDecoder(TransponderReceiverFactory.CreateTransponderDataReceiver());
             //var atmModelObj = new ATMDataDecoder(new FakeTransponderSource());
-            this.TransponderDataItem = new ObservableCollection<IATMTransponderData>();
+            TransponderDataItem = new ObservableCollection<IATMTransponderData>();
             NotificationCollection = new ObservableCollection<ATMEventInfo>();
 
             atmModelObj._event += (sender, items) =>

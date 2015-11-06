@@ -26,6 +26,7 @@ namespace ATMModel.Events
                 {
                     foreach (var item in newTransponderDatas)
                     {
+                        // ReSharper disable once PossibleNullReferenceException
                         if (!SeparationCheck(e.Current, item) || item.Tag == e.Current.Tag) continue;
 
                         var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation", item.Timestamp);

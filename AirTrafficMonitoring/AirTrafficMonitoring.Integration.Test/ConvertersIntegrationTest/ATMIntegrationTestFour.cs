@@ -10,15 +10,13 @@ namespace AirTrafficMonitoring.Integration.Test.ConvertersIntegrationTest
     public class ATMIntegrationTestFour
     {
         private IATMDataConverter _atmDataConverter;
-        private IATMAngleConverter _atmAngleConverter;
-        private IATMVelocityConverter _atmVelocityConverter;
-
         private List<string> _list;
         private List<IATMTransponderData> _atmTransponderDataList;
+
         [SetUp]
         public void Setup()
         {
-            _atmDataConverter = new ATMDataConverter(_atmAngleConverter = new ATMAngleConverter(), _atmVelocityConverter = new ATMVelocityConverter());
+            _atmDataConverter = new ATMDataConverter( new ATMAngleConverter(), new ATMVelocityConverter());
             _list = new List<string>();
             _atmTransponderDataList = new List<IATMTransponderData>();
             _list.Add("F12;14642;13606;5600;20151012134322345");

@@ -14,17 +14,15 @@ namespace AirTrafficMonitoring.Integration.Test
     public class ATMIntegrationTestNine
     {
         private IATMDataDecoder _atmDataDecoder;
-        private IATMDataConverter _atmDataConverter;
-        private IATMEventHandler _atmEventHandler;
         private ITransponderReceiver _transponderReceiver;
-        private List<IATMTransponderData> _list = new List<IATMTransponderData>();
+
         [SetUp]
         public void Setup()
         {
             _transponderReceiver = Substitute.For<ITransponderReceiver>();
 
             _atmDataDecoder = new ATMDataDecoder(_transponderReceiver,
-                _atmDataConverter = new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()),
+                 new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter()),
                 new ATMEventHandler());
         }
 

@@ -17,9 +17,11 @@ namespace ATMViewModel
             _timer.Tick += (sender, args) =>
             {
 
-                var list = new List<string>();
-                list.Add("E15;" + (x += 100) + ";" + (y += 100) + ";5000;20151012124523456");
-                list.Add("E16;" + (x1 -= 100) + ";" + (y += 100) + ";5000;20151012124523456");
+                var list = new List<string>
+                {
+                    "E15;" + (x += 100) + ";" + (y += 100) + ";5000;20151012124523456",
+                    "E16;" + (x1 -= 100) + ";" + (y += 100) + ";5000;20151012124523456"
+                };
                 TransponderDataReady?.Invoke(list);
             };
             _timer.Interval = new TimeSpan(0,0,1);

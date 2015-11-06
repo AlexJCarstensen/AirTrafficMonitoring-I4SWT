@@ -5,7 +5,6 @@ using ATMModel.Converters;
 using ATMModel.Data;
 using ATMModel.Events;
 using NSubstitute;
-using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using TransponderReceiver;
 
