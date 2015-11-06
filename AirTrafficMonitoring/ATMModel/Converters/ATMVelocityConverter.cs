@@ -8,7 +8,7 @@ namespace ATMModel.Converters
     {
         public double Convert(IATMCoordinate oldCoordinate, IATMCoordinate newCoordinate, string oldTimestamp, string newTimestamp)
         {
-            if (oldCoordinate == null || newCoordinate == null || oldTimestamp == null || newTimestamp == null) throw new ArgumentNullException();
+            if (oldCoordinate == null || newCoordinate == null || oldTimestamp == null || newTimestamp == null) throw new ArgumentNullException(nameof(newCoordinate) +", " + nameof(oldCoordinate) + ", " + nameof(oldTimestamp) + ", " + nameof(newTimestamp) + " are null");
 
             var velocity =
                 Math.Sqrt(Math.Pow((newCoordinate.X - oldCoordinate.X), 2) +
