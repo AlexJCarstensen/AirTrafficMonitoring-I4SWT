@@ -18,13 +18,13 @@ namespace ATMModel.Events
 
         public override void DetectWarning(ICollection<IATMTransponderData> newTransponderDatas)
         {
+            if(newTransponderDatas == null) return;
+
             var localNotifiedEvents = new List<WarningEventArgs>(_notifiedWarningEventArgses);
             _notifiedWarningEventArgses.Clear();
             
             using (var e = newTransponderDatas?.GetEnumerator())
             {
-                if(e == null) return;
-
                 while (e.MoveNext())
                 {
                     foreach (var item in newTransponderDatas)
@@ -67,8 +67,8 @@ namespace ATMModel.Events
 
         public bool SeparationCheck(IATMTransponderData data1, IATMTransponderData data2)
         {
-            return data2 != null && ((data2.Coordinate.Z - data1.Coordinate.Z) < 300 &&
-                                     (data2.Coordinate.Z - data1.Coordinate.Z) > -300 &&
+            if (data1 == null || data2 == null) return false;
+            return (Math.Abs((data2.Coordinate.Z - data1.Coordinate.Z)) < 300 &&
                                      Math.Sqrt(Math.Pow(data2.Coordinate.Y - data1.Coordinate.Y, 2) + 
                                                Math.Pow(data2.Coordinate.X - data1.Coordinate.X, 2)) < 5000);
         }
