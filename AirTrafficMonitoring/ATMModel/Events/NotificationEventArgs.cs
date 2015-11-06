@@ -14,13 +14,15 @@ namespace ATMModel.Events
             Timestamp = timestamp;
             _delayTime = delayTime;
 
-            var timer = new Timer {Interval = delayTime};
-            timer.Elapsed += (sender, args) =>
+            using (var timer = new Timer {Interval = delayTime})
             {
-                StopMeEvent?.Invoke(this, Empty);
-                timer.Stop();
-            };
-            timer.Start();
+                timer.Elapsed += (sender, args) =>
+                {
+                    StopMeEvent?.Invoke(this, Empty);
+                    timer.Stop();
+                };
+                timer.Start();
+            }
         }
 
         public string Tag { get; }
