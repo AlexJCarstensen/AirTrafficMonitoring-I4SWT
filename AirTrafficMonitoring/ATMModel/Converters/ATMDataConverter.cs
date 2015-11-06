@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using ATMModel.Data;
 
@@ -18,7 +19,7 @@ namespace ATMModel.Converters
         public List<IATMTransponderData> Convert(ICollection<string> list) 
         {
             var currentItems = new List<IATMTransponderData>();
-            foreach (var newItem in from data in list.Select(item => item.Split(';')) let coordinate = new ATMCoordinate(int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3])) where coordinate.Validate select new ATMTransponderData(
+            foreach (var newItem in from data in list.Select(item => item.Split(';')) let coordinate = new ATMCoordinate(int.Parse(data[1], NumberStyles.Integer), int.Parse(data[2], NumberStyles.Integer), int.Parse(data[3], NumberStyles.Integer)) where coordinate.Validate select new ATMTransponderData(
                 data[0],
                 coordinate,
                 data[4]

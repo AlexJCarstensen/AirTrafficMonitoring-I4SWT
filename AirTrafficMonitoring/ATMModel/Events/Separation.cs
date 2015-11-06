@@ -65,7 +65,7 @@ namespace ATMModel.Events
             }
         }
 
-        public bool SeparationCheck(IATMTransponderData data1, IATMTransponderData data2)
+        public static bool SeparationCheck(IATMTransponderData data1, IATMTransponderData data2)
         {
             if (data1 == null || data2 == null) return false;
             return (Math.Abs((data2.Coordinate.Z - data1.Coordinate.Z)) < 300 &&

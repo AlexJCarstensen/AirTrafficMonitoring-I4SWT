@@ -9,9 +9,9 @@ namespace ATMModel.Events
         private readonly IATMLogEvent _atmLog;
         private const string LogString = " TrackEnteredAirspace Notification ";
 
-        public TrackEnteredAirspace(IATMLogEvent atmLogEvent = null)
+        public TrackEnteredAirspace(IATMLogEvent aTMLogEvent = null)
         {
-            _atmLog = atmLogEvent ?? new ATMLogger();
+            _atmLog = aTMLogEvent ?? new ATMLogger();
         }
 
         public override void DetectNotification(ICollection<IATMTransponderData> oldTransponderDatas, ICollection<IATMTransponderData> newTransponderDatas)

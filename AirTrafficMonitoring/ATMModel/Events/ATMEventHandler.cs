@@ -8,7 +8,7 @@ namespace ATMModel.Events
     {
         private readonly IEnumerable<ATMWarning> _atmWarnings;
         private readonly IEnumerable<ATMNotification> _atmNotifications;
-        private ICollection<IATMTransponderData> _aTMTransponderDatas = new List<IATMTransponderData>();
+        private ICollection<IATMTransponderData> _atmTransponderDatas = new List<IATMTransponderData>();
 
         public ATMEventHandler(IEnumerable<ATMWarning> atmWarnings = null, IEnumerable<ATMNotification> atmNotifications = null)
         {
@@ -25,10 +25,10 @@ namespace ATMModel.Events
 
             foreach (var notification in _atmNotifications)
             {
-                notification.DetectNotification(_aTMTransponderDatas, atmTransponderDatas);
+                notification.DetectNotification(_atmTransponderDatas, atmTransponderDatas);
             }
 
-            _aTMTransponderDatas = atmTransponderDatas;
+            _atmTransponderDatas = atmTransponderDatas;
         }
     }
 }
