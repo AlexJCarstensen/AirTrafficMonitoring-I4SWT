@@ -7,9 +7,9 @@ namespace ATMModel.Events
 {
     public class Separation : ATMWarning
     {
-        private readonly List<WarningEventArgs> _notifiedEventsList = new List<WarningEventArgs>();
+        private readonly List<WarningEventArgs> _notifiedWarningEventArgses = new List<WarningEventArgs>();
         private readonly IATMLogEvent _atmLog;
-        private readonly string[] _logString = { " Separation Warning ", " Activated", " Deactivated" };
+        private readonly string[] _logString = { " Separation Warning ", " Activated", " Deactivated", " " };
 
         public Separation(IATMLogEvent atmLog = null)
         {
@@ -18,20 +18,22 @@ namespace ATMModel.Events
 
         public override void DetectWarning(ICollection<IATMTransponderData> newTransponderDatas)
         {
-            List<WarningEventArgs> localNotifiedEvents = new List<WarningEventArgs>(_notifiedEventsList);
-            _notifiedEventsList.Clear();
+            List<WarningEventArgs> localNotifiedEvents = new List<WarningEventArgs>(_notifiedWarningEventArgses);
+            _notifiedWarningEventArgses.Clear();
             
             using (var e = newTransponderDatas.GetEnumerator())
             {
                 while (e.MoveNext())
                 {
+                    if(e.Current == null) continue;
+
                     foreach (var item in newTransponderDatas)
                     {
                         // ReSharper disable once PossibleNullReferenceException
                         if (!SeparationCheck(e.Current, item) || item.Tag == e.Current.Tag) continue;
 
                         var currentNotification = new WarningEventArgs(item.Tag, e.Current.Tag, "Separation", item.Timestamp);
-                        if (_notifiedEventsList.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
+                        if (_notifiedWarningEventArgses.Any(t => t.Tag1 == currentNotification.Tag2 && t.Tag2 == currentNotification.Tag1)) continue;
 
                         if (
                             localNotifiedEvents.Any(
@@ -41,7 +43,7 @@ namespace ATMModel.Events
                                     && t.Tag2 == item.Tag
                                     || t.Tag2 == e.Current.Tag))
                         {
-                            _notifiedEventsList.Add(currentNotification);
+                            _notifiedWarningEventArgses.Add(currentNotification);
                             localNotifiedEvents.Remove(localNotifiedEvents.First(
                                 t =>
                                     t.Tag1 == item.Tag
@@ -51,15 +53,15 @@ namespace ATMModel.Events
                             continue;
                         }
                         Notify(currentNotification);
-                        _notifiedEventsList.Add(currentNotification);
-                        _atmLog.Log(item.Timestamp +_logString[0] + item.Tag + " " + e.Current.Tag + _logString[1]);
+                        _notifiedWarningEventArgses.Add(currentNotification);
+                        _atmLog.Log(item.Timestamp +_logString[0] + item.Tag + _logString[3] + e.Current.Tag + _logString[1]);
                     }
                 }
             }
             foreach (var t in localNotifiedEvents)
             {
                 Notify(new WarningEventArgs(t.Tag1, t.Tag2, "Separation", t.Timestamp, false));
-                _atmLog.Log(t.Timestamp + _logString[0] + t.Tag1 + " " + t.Tag2 + _logString[2]);
+                _atmLog.Log(t.Timestamp + _logString[0] + t.Tag1 + _logString[3] + t.Tag2 + _logString[2]);
             }
         }
 
