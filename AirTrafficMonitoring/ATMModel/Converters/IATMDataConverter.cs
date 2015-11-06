@@ -5,6 +5,6 @@ namespace ATMModel.Converters
 {
     public interface IATMDataConverter
     {
-        List<IATMTransponderData> Convert(List<string> list );
+        List<IATMTransponderData> Convert(ICollection<string> list );
     }
 }

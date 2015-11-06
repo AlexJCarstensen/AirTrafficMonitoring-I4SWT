@@ -20,12 +20,12 @@ namespace ATMModel
             _dataConverter = dataConverter ?? new ATMDataConverter(new ATMAngleConverter(), new ATMVelocityConverter());
             _eventHandler = eventHandler ?? new ATMEventHandler();
 
-            transponderReceiver.TransponderDataReady += OnTransponderDataReady;
+            if (transponderReceiver != null) transponderReceiver.TransponderDataReady += OnTransponderDataReady;
         }
 
-        public void OnTransponderDataReady(List<string> list)
+        public void OnTransponderDataReady(ICollection<string> list)
         {
-            if(list.Count <= 0) return;
+            if(list?.Count <= 0) return;
 
             var convertedData = _dataConverter.Convert(list);
             _event?.Invoke(this, convertedData);

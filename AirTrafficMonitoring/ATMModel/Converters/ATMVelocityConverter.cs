@@ -10,7 +10,7 @@ namespace ATMModel.Converters
             var velocity =
                 Math.Sqrt(Math.Pow((newCoordinate.X - oldCoordinate.X), 2) +
                           Math.Pow((newCoordinate.Y - oldCoordinate.Y), 2));
-            if((double.Parse(newTimestamp) - double.Parse(oldTimestamp) <= 0))
+            if((double.Parse(newTimestamp) - double.Parse(oldTimestamp) <= 0) || Math.Abs(velocity) < 3)
                 return 0;
             velocity = velocity/
                        ((double.Parse(newTimestamp) - double.Parse(oldTimestamp))/1000);

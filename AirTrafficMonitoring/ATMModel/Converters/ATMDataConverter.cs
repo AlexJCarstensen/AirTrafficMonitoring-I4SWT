@@ -8,28 +8,23 @@ namespace ATMModel.Converters
     {
         private readonly IATMAngleConverter _angle;
         private readonly IATMVelocityConverter _velocity;
-        private static List<IATMTransponderData> _localDataItems = new List<IATMTransponderData>();
+        private static ICollection<IATMTransponderData> _localDataItems = new List<IATMTransponderData>();
         public ATMDataConverter(IATMAngleConverter angle, IATMVelocityConverter velocity)
         {
             _angle = angle;
             _velocity = velocity;
         }
 
-        public List<IATMTransponderData> Convert(List<string> list) 
+        public List<IATMTransponderData> Convert(ICollection<string> list) 
         {
             var currentItems = new List<IATMTransponderData>();
-            foreach (var data in list.Select(item => item.Split(';')))
+            foreach (var newItem in from data in list.Select(item => item.Split(';')) let coordinate = new ATMCoordinate(int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3])) where coordinate.Validate select new ATMTransponderData(
+                data[0],
+                coordinate,
+                data[4]
+                ))
             {
-                var coordinate = new ATMCoordinate(int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]));
-                if(!coordinate.Validate) continue;
-
-                var newItem =new ATMTransponderData(
-                    data[0],
-                    coordinate,
-                    data[4]
-                    );
-
-                if (!_localDataItems.Exists(t => t.Tag == newItem.Tag))
+                if (_localDataItems.All(t => t.Tag != newItem.Tag))
                 {
                     currentItems.Add(newItem);
                     continue;
@@ -41,7 +36,7 @@ namespace ATMModel.Converters
                 currentItems.Add(newItem);
             }
             _localDataItems = currentItems;
-            return _localDataItems;
+            return _localDataItems.ToList();
             
         }
     }
