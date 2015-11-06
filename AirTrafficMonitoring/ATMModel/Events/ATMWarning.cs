@@ -7,7 +7,7 @@ namespace ATMModel.Events
     public abstract class ATMWarning
     {
         public static event EventHandler<WarningEventArgs> WarningEvent;
-        public abstract void DetectWarning(List<IATMTransponderData> newTransponderDatas);
+        public abstract void DetectWarning(ICollection<IATMTransponderData> newTransponderDatas);
         
         protected virtual void Notify(WarningEventArgs e)
         {

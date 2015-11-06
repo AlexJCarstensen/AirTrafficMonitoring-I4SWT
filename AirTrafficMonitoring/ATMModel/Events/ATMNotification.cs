@@ -8,7 +8,7 @@ namespace ATMModel.Events
     {
         public static event EventHandler<NotificationEventArgs> NotificationEvent;
 
-        abstract public void DetectNotification(List<IATMTransponderData> oldTransponderDatas, List<IATMTransponderData> newTransponderDatas);
+        abstract public void DetectNotification(ICollection<IATMTransponderData> oldTransponderDatas, ICollection<IATMTransponderData> newTransponderDatas);
 
         protected virtual void Notify(NotificationEventArgs e)
         {

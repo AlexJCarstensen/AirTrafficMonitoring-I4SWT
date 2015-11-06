@@ -9,13 +9,14 @@ namespace ATMModel.Events
     {
         private readonly List<WarningEventArgs> _notifiedEventsList = new List<WarningEventArgs>();
         private readonly IATMLogEvent _atmLog;
+        private readonly string[] _logString = { " Separation Warning ", " Activated", " Deactivated" };
 
         public Separation(IATMLogEvent atmLog = null)
         {
             _atmLog = atmLog ?? new ATMLogger();
         }
 
-        public override void DetectWarning(List<IATMTransponderData> newTransponderDatas)
+        public override void DetectWarning(ICollection<IATMTransponderData> newTransponderDatas)
         {
             List<WarningEventArgs> localNotifiedEvents = new List<WarningEventArgs>(_notifiedEventsList);
             _notifiedEventsList.Clear();
@@ -51,14 +52,14 @@ namespace ATMModel.Events
                         }
                         Notify(currentNotification);
                         _notifiedEventsList.Add(currentNotification);
-                        _atmLog.Log(item.Timestamp + " Separation Warning " + item.Tag + " " + e.Current.Tag + " Activated");
+                        _atmLog.Log(item.Timestamp +_logString[0] + item.Tag + " " + e.Current.Tag + _logString[1]);
                     }
                 }
             }
             foreach (var t in localNotifiedEvents)
             {
                 Notify(new WarningEventArgs(t.Tag1, t.Tag2, "Separation", t.Timestamp, false));
-                _atmLog.Log(t.Timestamp + " Separation Warning " + t.Tag1 + " " + t.Tag2 + " Deactivated");
+                _atmLog.Log(t.Timestamp + _logString[0] + t.Tag1 + " " + t.Tag2 + _logString[2]);
             }
         }
 

@@ -13,9 +13,9 @@ namespace ATMModel.Events
             _atmLog = atmLog ?? new ATMLogger();
         }
 
-        public override void DetectNotification(List<IATMTransponderData> oldTransponderDatas, List<IATMTransponderData> newTransponderDatas)
+        public override void DetectNotification(ICollection<IATMTransponderData> oldTransponderDatas, ICollection<IATMTransponderData> newTransponderDatas)
         {
-            foreach (var item in newTransponderDatas.Where(item => !oldTransponderDatas.Exists(t => t.Tag == item.Tag)))
+            foreach (var item in newTransponderDatas.Where(item => oldTransponderDatas.All(t => t.Tag != item.Tag)))
             {
                 Notify(new NotificationEventArgs(item.Tag, "TrackEnteredAirspace", item.Timestamp));
                 _atmLog.Log(item.Timestamp + " TrackEnteredAirspace Notification " + item.Tag);
