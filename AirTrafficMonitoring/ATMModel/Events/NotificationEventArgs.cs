@@ -19,6 +19,7 @@ namespace ATMModel.Events
                 {
                     StopMeEvent?.Invoke(this, Empty);
                     timer.Stop();
+                    timer.Dispose();
                 };
                 timer.Start();
             

@@ -7,7 +7,6 @@ namespace ATMModel.Events
     public class TrackLeftAirspace : ATMNotification
     {
         private readonly IATMLogEvent _atmLog;
-        private const string LogString = " TrackLeftAirspace Notification ";
 
         public TrackLeftAirspace(IATMLogEvent aTMLogEvent = null)
         {
@@ -18,8 +17,9 @@ namespace ATMModel.Events
         {
             foreach (var item in oldTransponderDatas.Where(item => newTransponderDatas.All(t => t.Tag != item.Tag)))
             {
+                const string logString = " TrackLeftAirspace Notification ";
                 Notify(new NotificationEventArgs(item.Tag, "TrackLeftAirspace", item.Timestamp));
-                _atmLog.Log(item.Timestamp + LogString + item.Tag);
+                _atmLog.Log(item.Timestamp + logString + item.Tag);
             }
         }
     }
