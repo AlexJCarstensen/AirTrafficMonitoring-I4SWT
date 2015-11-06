@@ -7,7 +7,7 @@ namespace ATMModel.Events
 {
     public class Separation : ATMWarning
     {
-        private readonly List<WarningEventArgs> _notifiedWarningEventArgses = new List<WarningEventArgs>();
+        private readonly ICollection<WarningEventArgs> _notifiedWarningEventArgses = new List<WarningEventArgs>();
         private readonly IATMLogEvent _atmLog;
         private readonly string[] _logString = { " Separation Warning ", " Activated", " Deactivated", " " };
 
@@ -18,15 +18,15 @@ namespace ATMModel.Events
 
         public override void DetectWarning(ICollection<IATMTransponderData> newTransponderDatas)
         {
-            List<WarningEventArgs> localNotifiedEvents = new List<WarningEventArgs>(_notifiedWarningEventArgses);
+            var localNotifiedEvents = new List<WarningEventArgs>(_notifiedWarningEventArgses);
             _notifiedWarningEventArgses.Clear();
             
-            using (var e = newTransponderDatas.GetEnumerator())
+            using (var e = newTransponderDatas?.GetEnumerator())
             {
+                if(e == null) return;
+
                 while (e.MoveNext())
                 {
-                    if(e.Current == null) continue;
-
                     foreach (var item in newTransponderDatas)
                     {
                         // ReSharper disable once PossibleNullReferenceException
